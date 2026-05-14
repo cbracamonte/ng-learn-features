@@ -1,0 +1,45 @@
+<section class="mx-auto max-w-6xl px-6 py-12">
+  <a routerLink="/" class="mb-8 inline-flex text-sm font-medium text-slate-600 hover:text-slate-900">← Volver al home</a>
+
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h1 class="text-2xl font-semibold text-slate-900">Signals API</h1>
+    <p class="mt-3 text-slate-600">Ejemplos separados por concepto: signal, computed, effect, linkedSignal, resource e interop con RxJS.</p>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      <app-signal-demo [count]="facade.count()" (increment)="facade.increment()" (reset)="facade.reset()" />
+      <app-computed-demo
+        [price]="facade.price()"
+        [quantity]="facade.quantity()"
+        [total]="facade.total()"
+        (addQty)="facade.addQty()"
+      />
+      <app-effect-demo [logs]="facade.logs()" (setQuery)="facade.setQuery($event)" />
+      <app-untracked-demo />
+      <app-effect-cleanup-demo />
+      <app-linked-signal-demo
+        [options]="facade.options()"
+        [selected]="facade.selected()"
+        (shuffle)="facade.shuffleOptions()"
+        (select)="facade.select($event)"
+      />
+      <app-resource-demo
+        class="lg:col-span-2"
+        [status]="facade.explanation.status()"
+        [isLoading]="facade.explanation.isLoading()"
+        [value]="facade.explanation.value()"
+        (setTopic)="facade.setTopic($event)"
+      />
+      <app-rxjs-todo-demo />
+      <app-signal-todo-demo />
+      <app-rxjs-http-demo />
+      <app-resource-http-demo />
+      <app-rxjs-interop-demo />
+      <app-to-signal-sync-demo />
+      <app-signal-queries-demo class="lg:col-span-2" />
+    </div>
+
+    <div class="mt-6">
+      <app-signals-notes />
+    </div>
+  </article>
+</section>

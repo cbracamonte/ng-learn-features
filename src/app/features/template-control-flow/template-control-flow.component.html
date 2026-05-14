@@ -1,0 +1,176 @@
+<section class="mx-auto max-w-6xl px-6 py-12">
+  <a routerLink="/" class="mb-8 inline-flex text-sm font-medium text-slate-600 hover:text-slate-900"
+    >← Volver al home</a
+  >
+
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h1 class="text-2xl font-semibold text-slate-900">Template Control Flow (Angular)</h1>
+    <p class="mt-3 text-slate-600">
+      Ejemplos prácticos y comparables de la sintaxis moderna: <code>&#64;defer</code>,
+      <code>&#64;placeholder</code>, <code>&#64;loading</code>, <code>&#64;error</code>,
+      <code>&#64;if</code> y <code>&#64;for</code>.
+    </p>
+
+    <section class="mt-6 rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+      <h2 class="text-lg font-semibold text-indigo-900">Guía de lectura rápida (didáctica)</h2>
+      <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm text-indigo-900">
+        <li><strong>on immediate</strong>: carga apenas Angular puede.</li>
+        <li><strong>on viewport</strong>: NO carga hasta que el bloque entra en pantalla (scroll).</li>
+        <li><strong>on interaction</strong>: carga por click/interaction explícita.</li>
+      </ol>
+      <p class="mt-2 text-xs text-indigo-800">
+        Tip: abrí DevTools/Network y vas a ver cómo cambia el momento de carga según el trigger.
+      </p>
+    </section>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      <section class="rounded-xl border border-slate-200 p-4">
+        <h2 class="text-lg font-semibold text-slate-900">1) &#64;defer on immediate (arriba)</h2>
+        <p class="mt-1 text-sm text-slate-600">
+          Se dispara enseguida. Este bloque te sirve como referencia de “carga temprana”.
+        </p>
+
+        @defer (on immediate) {
+          <app-deferred-content-demo
+            class="mt-2"
+            title="Carga inmediata"
+            detail="Angular lo evalúa ni bien puede, sin esperar scroll ni interacción."
+          />
+        } @placeholder {
+          <p class="mt-3 rounded bg-slate-100 p-3 text-sm text-slate-600">
+            Placeholder inmediato...
+          </p>
+        } @loading (minimum 500ms) {
+          <p class="mt-3 rounded bg-amber-100 p-3 text-sm text-amber-800">
+            Loading inmediato...
+          </p>
+        }
+      </section>
+
+      <section class="rounded-xl border border-slate-200 p-4">
+        <h2 class="text-lg font-semibold text-slate-900">2) &#64;defer on interaction</h2>
+        <p class="mt-1 text-sm text-slate-600">Solo se carga cuando interactuás con el botón.</p>
+
+        <button
+          #interactionTrigger
+          type="button"
+          class="mt-3 rounded bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700"
+        >
+          Cargar demo por interacción
+        </button>
+
+        @defer (on interaction(interactionTrigger)) {
+          <app-deferred-content-demo
+            class="mt-2"
+            title="Carga por interacción"
+            detail="Útil para paneles avanzados que no todos los usuarios abren."
+          />
+        } @placeholder {
+          <p class="mt-3 rounded bg-slate-100 p-3 text-sm text-slate-600">
+            Esperando interacción del usuario...
+          </p>
+        } @loading {
+          <p class="mt-3 rounded bg-amber-100 p-3 text-sm text-amber-800">Loading...</p>
+        }
+      </section>
+
+      <section class="rounded-xl border border-slate-200 p-4 lg:col-span-2">
+        <h2 class="text-lg font-semibold text-slate-900">3) &#64;defer when signal</h2>
+        <p class="mt-1 text-sm text-slate-600">
+          Se activa cuando una condición reactiva pasa a true.
+        </p>
+
+        <button
+          type="button"
+          class="mt-3 rounded bg-emerald-700 px-3 py-2 text-sm font-medium text-white hover:bg-emerald-600"
+          (click)="enableSignalBlock()"
+        >
+          Activar condición
+        </button>
+
+        @defer (when showSignalBlock()) {
+          <app-deferred-content-demo
+            class="mt-2"
+            title="Carga condicional"
+            detail="Perfecto para contenido premium o dependiente de permisos/estado."
+          />
+        } @placeholder {
+          <p class="mt-3 rounded bg-slate-100 p-3 text-sm text-slate-600">
+            Condición en false. Todavía no se carga el bloque.
+          </p>
+        } @loading {
+          <p class="mt-3 rounded bg-amber-100 p-3 text-sm text-amber-800">Loading condicional...</p>
+        }
+      </section>
+    </div>
+
+    <section class="mt-10 rounded-xl border border-slate-300 bg-slate-50 p-4">
+      <h2 class="text-lg font-semibold text-slate-900">Sección de contraste: viewport vs immediate</h2>
+      <p class="mt-1 text-sm text-slate-700">
+        Ahora sí es didáctico: este bloque está deliberadamente lejos del inicio. Hasta que no hagas scroll,
+        <strong>no debería cargarse</strong>.
+      </p>
+    </section>
+
+    <div class="mt-4 h-[70vh] rounded-xl border border-dashed border-slate-300 bg-white/60 p-4">
+      <p class="text-sm text-slate-600">
+        Spacer intencional para sacar el bloque de <code>on viewport</code> del primer viewport. Bajá para dispararlo.
+      </p>
+    </div>
+
+    <section class="mt-4 rounded-xl border border-slate-200 p-4">
+      <h2 class="text-lg font-semibold text-slate-900">4) &#64;defer on viewport (abajo, fuera de pantalla inicial)</h2>
+      <p class="mt-1 text-sm text-slate-600">
+        Este es el cambio clave: no carga al inicio, recién cuando entra en el viewport.
+      </p>
+
+      @defer (on viewport) {
+        <app-deferred-content-demo
+          class="mt-2"
+          title="Carga por viewport"
+          detail="Este bloque debería activarse recién al aparecer en pantalla."
+        />
+      } @placeholder {
+        <p class="mt-3 rounded bg-slate-100 p-3 text-sm text-slate-600">
+          Placeholder viewport: todavía no entró al área visible.
+        </p>
+      } @loading (minimum 500ms) {
+        <p class="mt-3 rounded bg-amber-100 p-3 text-sm text-amber-800">Loading por viewport...</p>
+      }
+    </section>
+
+    <section class="mt-4 rounded-xl border border-slate-200 p-4">
+      <h2 class="text-lg font-semibold text-slate-900">5) &#64;error en &#64;defer</h2>
+      <p class="mt-1 text-sm text-slate-600">
+        Muestra fallback de error cuando el contenido diferido falla.
+      </p>
+
+      <button
+        type="button"
+        class="mt-3 rounded bg-rose-700 px-3 py-2 text-sm font-medium text-white hover:bg-rose-600"
+        (click)="enableErrorDemo()"
+      >
+        Forzar error controlado
+      </button>
+
+      @defer (when showErrorDemo()) {
+        <app-deferred-content-demo
+          class="mt-2"
+          title="Este bloque falla a propósito"
+          detail="Este texto no debería verse porque el bloque lanza error."
+          [fail]="true"
+        />
+      } @placeholder {
+        <p class="mt-3 rounded bg-slate-100 p-3 text-sm text-slate-600">
+          Presioná el botón para disparar el defer.
+        </p>
+      } @loading {
+        <p class="mt-3 rounded bg-amber-100 p-3 text-sm text-amber-800">Intentando cargar...</p>
+      } @error {
+        <p class="mt-3 rounded bg-rose-100 p-3 text-sm text-rose-800">
+          Error capturado por <code>&#64;error</code>. Este es el fallback recomendado.
+        </p>
+      }
+    </section>
+  </article>
+</section>

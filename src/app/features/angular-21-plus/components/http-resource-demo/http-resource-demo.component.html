@@ -1,0 +1,40 @@
+<section class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">httpResource() (experimental)</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    Caso real: GET reactivo dependiente de un ID. Cambiás el signal y <code>httpResource</code> re-dispara la request cancelando la anterior si sigue pendiente.
+  </p>
+
+  <div class="mt-3 flex flex-wrap gap-2 text-xs">
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setTodo(1)">Todo 1</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setTodo(2)">Todo 2</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setTodo(3)">Todo 3</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="reload()">Reload</button>
+  </div>
+
+  <div class="mt-3 rounded-lg border border-emerald-200 bg-white p-3 text-xs text-slate-700">
+    <p>status: <strong>{{ todo.status() }}</strong></p>
+    <p>loading: <strong>{{ todo.isLoading() ? 'sí' : 'no' }}</strong></p>
+
+    @if (todo.error()) {
+      <p class="mt-2 text-rose-700">Error: {{ $any(todo.error())?.message ?? 'request fallida' }}</p>
+    }
+
+    @if (todo.hasValue()) {
+      <div class="mt-2 rounded bg-emerald-50 p-2">
+        <p><strong>ID:</strong> {{ todo.value().id }}</p>
+        <p><strong>Título:</strong> {{ todo.value().title }}</p>
+        <p><strong>Done:</strong> {{ todo.value().completed ? 'sí' : 'no' }}</p>
+      </div>
+    }
+  </div>
+
+  <div class="mt-3 rounded-lg border border-emerald-200 bg-white p-3 text-xs text-slate-700">
+    <p class="font-semibold text-emerald-800">Qué aprender acá</p>
+    <ul class="mt-1 list-disc space-y-1 pl-5">
+      <li><strong>Eager request</strong>: a diferencia de <code>HttpClient.get()</code>, esto arranca sin subscribe manual.</li>
+      <li><strong>parse</strong>: validá/transformá respuesta en el borde, no asumas contrato del backend.</li>
+      <li><strong>hasValue()</strong>: guardá la lectura; leer <code>value()</code> en error puede romper en runtime.</li>
+      <li><strong>No para mutations</strong>: POST/PUT/DELETE seguí manejándolos con <code>HttpClient</code>.</li>
+    </ul>
+  </div>
+</section>

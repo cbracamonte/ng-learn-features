@@ -1,0 +1,47 @@
+<section class="rounded-xl border border-fuchsia-200 bg-fuchsia-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">Signal Queries (viewChild/viewChildren)</h2>
+  <p class="mt-2 text-xs text-slate-600">Caso: panel de tareas que accede al input y a filas del DOM de forma reactiva, sin ngAfterViewInit.</p>
+
+  <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-700">
+    <li><code>viewChild()</code> y <code>viewChildren()</code> devuelven signals tipados y reactivos.</li>
+    <li>Cuando cambia el DOM (mostrar/ocultar input o agregar/quitar filas), la query se actualiza sola.</li>
+    <li><code>contentChild()</code> / <code>contentChildren()</code> aplican la misma idea, pero sobre contenido proyectado.</li>
+  </ul>
+
+  <div class="mt-3 flex flex-wrap gap-2 text-xs">
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="toggleInput()">Toggle input</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="focusInput()">Focus input</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="highlightFirst()">Highlight 1ra fila</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="removeLast()">Quitar última</button>
+  </div>
+
+  <p class="mt-3 text-xs text-slate-700">input listo: {{ inputReady() ? 'sí' : 'no' }} · filas detectadas: {{ rowCount() }}</p>
+
+  @if (showInput()) {
+    <div class="mt-2 flex gap-2">
+      <input
+        #searchInput
+        #taskInput
+        type="text"
+        placeholder="Nueva tarea"
+        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm"
+        (keydown.enter)="addTask(taskInput.value); taskInput.value = ''"
+      />
+      <button
+        type="button"
+        class="rounded-lg bg-fuchsia-700 px-3 py-1.5 text-xs font-medium text-white"
+        (click)="addTask(taskInput.value); taskInput.value = ''"
+      >
+        Agregar
+      </button>
+    </div>
+  }
+
+  <ul class="mt-3 space-y-2 text-sm">
+    @for (task of tasks(); track task.id) {
+      <li #taskRow class="rounded-lg border border-slate-200 bg-white px-3 py-2">{{ task.title }}</li>
+    } @empty {
+      <li class="text-xs text-slate-500">Sin tareas.</li>
+    }
+  </ul>
+</section>

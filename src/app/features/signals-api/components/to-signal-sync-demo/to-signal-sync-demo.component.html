@@ -1,0 +1,26 @@
+<section class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">toSignal(): requireSync vs initialValue</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    <code>requireSync</code> solo para fuentes que emiten INMEDIATO (ej. BehaviorSubject). Para async, usá <code>initialValue</code>.
+  </p>
+
+  <div class="mt-3 flex gap-2 text-xs">
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="incrementSync()">
+      Incrementar sync +10
+    </button>
+  </div>
+
+  <p class="mt-3 text-xs text-slate-700">Sync (BehaviorSubject + requireSync): <strong>{{ syncValue() }}</strong></p>
+  <p class="mt-1 text-xs text-slate-700">Async (interval + initialValue): <strong>{{ asyncValue() }}</strong></p>
+
+  <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-700">
+    <li>
+      <strong>requireSync: true</strong> significa: “esta fuente DEBE emitir en el momento de suscribirme”.
+      Si la fuente emite después (async), Angular tira error al crear el signal.
+    </li>
+    <li>
+      <strong>initialValue</strong> es el valor inicial de la UI mientras todavía no llegó la primera emisión real.
+      Te evita estados ambiguos como <code>undefined</code>.
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,37 @@
+<section class="rounded-xl border border-cyan-200 bg-cyan-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">Interop: toObservable() + toSignal()</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    Objetivo: puentear estado local con RxJS sin mezclar responsabilidades.
+  </p>
+
+  <div class="mt-3">
+    <label class="text-xs text-slate-700" for="interop-query">Buscar curso</label>
+    <input
+      id="interop-query"
+      class="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm"
+      [value]="query()"
+      (input)="updateQuery(($any($event.target).value))"
+      placeholder="Angular, RxJS, Testing..."
+    />
+  </div>
+
+  <p class="mt-3 text-xs text-slate-700">Resultados: {{ total() }}</p>
+
+  <ul class="mt-2 space-y-2 text-sm">
+    @for (product of results(); track product.id) {
+      <li class="rounded-lg border border-slate-200 bg-white px-3 py-2">
+        <span class="font-medium">{{ product.name }}</span>
+        <span class="ml-2 text-xs text-slate-500">({{ product.category }})</span>
+      </li>
+    } @empty {
+      <li class="text-xs text-slate-500">Sin resultados.</li>
+    }
+  </ul>
+
+  <ul class="mt-3 list-disc space-y-1 pl-5 text-xs text-slate-700">
+    <li><strong>toObservable(signal)</strong>: usalo cuando necesitás operadores RxJS (debounce/switchMap/retry).</li>
+    <li><strong>toSignal(observable)</strong>: usalo para render reactivo en template sin <code>async</code> pipe.</li>
+    <li><strong>initialValue</strong> en toSignal: clave para evitar <code>undefined</code> antes de la primera emisión async.</li>
+    <li>Evitá conversiones ida y vuelta innecesarias: elegí un owner de estado y convertí solo en el borde.</li>
+  </ul>
+</section>

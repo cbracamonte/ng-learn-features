@@ -1,0 +1,21 @@
+<section class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">Animación: exhaustMap() y protección de doble submit</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    Caso real: usuario hace doble/triple click en “Guardar”. <code>exhaustMap</code> ignora nuevos clicks hasta terminar el request actual.
+  </p>
+
+  <div class="mt-3 flex gap-2 text-xs">
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="spamSubmit()">Simular triple click</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="reset()">Reset</button>
+    <span class="rounded bg-white px-2 py-1">Estado: <strong>{{ status$ | async }}</strong></span>
+  </div>
+
+  <div class="mt-3 h-1 w-full overflow-hidden rounded bg-rose-100"><div class="h-full w-1/4 animate-pulse bg-rose-400"></div></div>
+
+  @let logs = (logs$ | async);
+  <ul class="mt-3 space-y-1 text-xs">
+    @for (log of logs ?? []; track log.id) {
+      <li class="rounded bg-white px-2 py-1 text-slate-700">{{ log.text }}</li>
+    }
+  </ul>
+</section>

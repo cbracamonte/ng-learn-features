@@ -1,0 +1,39 @@
+<section class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">API con resource()</h2>
+  <p class="mt-2 text-xs text-slate-600">Objetivo: resolver loading/error/data declarativamente con params reactivos.</p>
+  <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-700">
+    <li><strong>resource</strong> puede dejar <code>value()</code> como <code>undefined</code> mientras carga nuevos params.</li>
+    <li><strong>cache: 'force-cache'</strong> puede disimular el gap en red rápida, pero no lo elimina en redes lentas.</li>
+    <li>Para UX estable usamos <strong>keep previous value</strong> con <code>linkedSignal</code> (<code>visibleTodos</code>).</li>
+    <li>Este patrón es clave para casos reales tipo paginación, filtros y búsquedas remotas.</li>
+  </ul>
+
+  <div class="mt-3 flex gap-2 text-xs">
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setUser(1)">User 1</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setUser(2)">User 2</button>
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setUser(3)">User 3</button>
+  </div>
+
+  <p class="mt-3 text-xs text-slate-700">Estado: {{ todosResource.status() }}</p>
+
+  @if (todosResource.isLoading()) {
+    <p class="mt-2 text-xs text-slate-500">Cargando...</p>
+  }
+
+  @if (todosResource.error(); as err) {
+    <p class="mt-2 text-xs text-red-600">Error: {{ err.message }}</p>
+  }
+
+  <ul class="mt-3 space-y-2 text-sm">
+    <!--
+      @for(todo of todosResource.value() || []; track todo.id) // Con este enfoque, value() es undefined durante la carga, lo que causa un gap visual.
+    -->
+    @for (todo of visibleTodos(); track todo.id) {
+      <li class="rounded-lg border border-slate-200 bg-white px-3 py-2">
+        {{ todo.title }}
+      </li>
+    } @empty {
+      <li class="text-xs text-slate-500">Sin resultados.</li>
+    }
+  </ul>
+</section>

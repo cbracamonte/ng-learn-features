@@ -1,0 +1,65 @@
+<section class="rounded-xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-slate-700">
+  <h2 class="font-semibold text-slate-900">Native Federation vs Webpack Module Federation</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    Dejame ser directo: los dos resuelven composición runtime de remotes, pero <strong>NO parten del mismo costo arquitectónico</strong>.
+  </p>
+
+  <div class="mt-4 overflow-x-auto">
+    <table class="min-w-full border-separate border-spacing-y-2 text-left text-xs">
+      <thead>
+        <tr class="text-slate-500">
+          <th class="px-3">Criterio</th>
+          <th class="px-3">Native Federation</th>
+          <th class="px-3">Webpack Module Federation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="rounded-lg bg-white align-top">
+          <td class="px-3 py-3 font-semibold text-slate-900">Base técnica</td>
+          <td class="px-3 py-3">Modelo de federación apoyado en <strong>ESM + browser standards</strong>. En Angular moderno suele ir con la librería de Angular Architects.</td>
+          <td class="px-3 py-3">Feature nativa de <strong>webpack 5</strong> vía <code>ModuleFederationPlugin</code>.</td>
+        </tr>
+        <tr class="rounded-lg bg-white align-top">
+          <td class="px-3 py-3 font-semibold text-slate-900">Acoplamiento al bundler</td>
+          <td class="px-3 py-3"><strong>Menor</strong>. La idea es desacoplarse de webpack y convivir mejor con builders modernos.</td>
+          <td class="px-3 py-3"><strong>Alto</strong>. El modelo está atado a webpack.</td>
+        </tr>
+        <tr class="rounded-lg bg-white align-top">
+          <td class="px-3 py-3 font-semibold text-slate-900">Encaje con Angular 21+</td>
+          <td class="px-3 py-3"><strong>Más natural</strong> para Angular moderno, porque Angular ya viene empujando builders modernos y zoneless/signals.</td>
+          <td class="px-3 py-3">Funciona, pero en Angular moderno suele sentirse más “legacy infra” si todo tu stack ya no gira en torno a webpack.</td>
+        </tr>
+        <tr class="rounded-lg bg-white align-top">
+          <td class="px-3 py-3 font-semibold text-slate-900">Madurez/ecosistema</td>
+          <td class="px-3 py-3">Bueno y creciendo, pero más chico. La experiencia depende bastante del tooling de terceros.</td>
+          <td class="px-3 py-3"><strong>Más maduro</strong>, más conocido y con más material histórico en equipos enterprise.</td>
+        </tr>
+        <tr class="rounded-lg bg-white align-top">
+          <td class="px-3 py-3 font-semibold text-slate-900">Mental model</td>
+          <td class="px-3 py-3">Pensado para el mundo actual: browser-native, ESM, builders modernos.</td>
+          <td class="px-3 py-3">Pensado desde la era webpack-first.</td>
+        </tr>
+        <tr class="rounded-lg bg-white align-top">
+          <td class="px-3 py-3 font-semibold text-slate-900">Cuándo conviene</td>
+          <td class="px-3 py-3">Si arrancás hoy con Angular moderno y querés alinearte con la dirección actual del ecosistema.</td>
+          <td class="px-3 py-3">Si ya tenés inversión fuerte en webpack/module federation y migrar no te devuelve valor inmediato.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 grid gap-3 lg:grid-cols-2 text-xs">
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <p class="font-semibold text-emerald-800">✅ Mi recomendación senior</p>
+      <p class="mt-1 text-emerald-900">
+        <strong>Proyecto nuevo en Angular 21+</strong>: mirá primero <strong>Native Federation</strong>. Tiene mejor narrativa futura si querés evitar quedarte atado a webpack.
+      </p>
+    </div>
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
+      <p class="font-semibold text-amber-800">⚠️ Mi warning senior</p>
+      <p class="mt-1 text-amber-900">
+        <strong>Proyecto enterprise existente</strong>: no migres “porque sí”. Si Webpack Module Federation ya resuelve deploy independiente, shared deps y versioning, migrar puede ser puro costo.
+      </p>
+    </div>
+  </div>
+</section>

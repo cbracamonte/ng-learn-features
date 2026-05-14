@@ -1,0 +1,55 @@
+<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+  <h2 class="font-semibold text-slate-900">Notas senior (versión didáctica)</h2>
+
+  <div class="mt-3 space-y-3 text-xs">
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <p class="font-semibold text-emerald-800">✅ Regla base de ownership</p>
+      <p class="mt-1 text-emerald-900">
+        Elegí un <strong>owner de estado</strong> (signal o stream RxJS). Convertí en los bordes, no hagas ping-pong constante.
+      </p>
+    </div>
+
+    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
+      <p class="font-semibold text-sky-800">🧠 Mapa mental rápido</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-sky-900">
+        <li><code>signal</code> guarda estado.</li>
+        <li><code>computed</code> deriva estado.</li>
+        <li><code>effect</code> ejecuta side effects.</li>
+        <li><code>linkedSignal</code> sincroniza estado editable.</li>
+        <li><code>resource</code> resuelve estado async.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
+      <p class="font-semibold text-violet-800">✅ Cuándo usar cada API</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
+        <li><strong>signal()</strong>: estado local mutable y explícito.</li>
+        <li><strong>computed()</strong>: dato derivado, sin duplicar estado.</li>
+        <li><strong>effect()</strong>: integración imperativa (logs, storage, analytics).</li>
+        <li><strong>linkedSignal()</strong>: selección editable que se resincroniza con fuente reactiva.</li>
+        <li><strong>toObservable()</strong>: cuando necesitás operadores RxJS (debounce/switchMap/retry).</li>
+        <li><strong>toSignal()</strong>: consumir Observable como lectura simple en template/computed/effect.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
+      <p class="font-semibold text-amber-800">⚠️ Errores comunes</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
+        <li>Guardar en <code>signal</code> un valor que podrías derivar con <code>computed</code>.</li>
+        <li>Usar <code>effect</code> para “propagar estado” entre signals (acopla y complica debug).</li>
+        <li>Hacer conversiones signal ↔ observable varias veces sin necesidad.</li>
+        <li>Usar <code>requireSync: true</code> con fuentes async.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3">
+      <p class="font-semibold text-fuchsia-800">🛠️ Detalles finos senior</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-fuchsia-900">
+        <li><strong>untracked()</strong>: leé snapshots sin crear dependencia reactiva.</li>
+        <li><strong>onCleanup en effect()</strong>: liberá timers/listeners/sockets para evitar leaks.</li>
+        <li><strong>equal</strong>: personalizá igualdad para frenar recomputaciones inútiles.</li>
+        <li><strong>initialValue</strong> en <code>toSignal</code>: define estado inicial claro de UI.</li>
+      </ul>
+    </div>
+  </div>
+</section>

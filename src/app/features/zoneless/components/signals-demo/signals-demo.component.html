@@ -1,0 +1,27 @@
+<section class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+  <h2 class="text-sm font-semibold text-emerald-900">Signals (recomendado)</h2>
+  <p class="mt-2 text-xs text-emerald-800">Estado reactivo que dispara render en zoneless.</p>
+
+  <div class="mt-3 grid gap-3 sm:grid-cols-3">
+    <div>
+      <p class="text-[11px] uppercase tracking-wide text-emerald-700">Timer</p>
+      <p class="text-2xl font-semibold text-emerald-950">{{ seconds() }}s</p>
+    </div>
+    <div>
+      <p class="text-[11px] uppercase tracking-wide text-emerald-700">Clicks</p>
+      <p class="text-2xl font-semibold text-emerald-950">{{ clicks() }}</p>
+    </div>
+    <div>
+      <p class="text-[11px] uppercase tracking-wide text-emerald-700">Async</p>
+      <p class="text-sm font-medium text-emerald-900">{{ asyncMessage() }}</p>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    (click)="increment.emit()"
+    class="mt-3 rounded-lg bg-emerald-800 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-700"
+  >
+    Incrementar
+  </button>
+</section>

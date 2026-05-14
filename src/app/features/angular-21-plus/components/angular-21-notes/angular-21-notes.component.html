@@ -1,0 +1,50 @@
+<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+  <h2 class="font-semibold text-slate-900">Notas senior Angular 21+ (visual + importantes)</h2>
+
+  <div class="mt-3 grid gap-3 text-xs lg:grid-cols-2">
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <p class="font-semibold text-emerald-800">✅ Qué trae valor real en Angular 21+</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-emerald-900">
+        <li><strong>Zoneless default</strong>: menos magia, menos monkey patching y CD más explícito.</li>
+        <li><strong>Signal Forms</strong>: modelo signal como fuente de verdad + validación reactiva declarativa.</li>
+        <li><strong>httpResource</strong>: GET reactivo con estado async expuesto como signals.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
+      <p class="font-semibold text-sky-800">🧠 Definiciones senior</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-sky-900">
+        <li><strong>Experimental</strong> no significa “malo”; significa <strong>API con riesgo de cambio</strong>. No la metas a producción a ciegas.</li>
+        <li><strong>Source of truth</strong>: en Signal Forms el modelo signal manda; el form tree no debe convertirse en segunda base de datos.</li>
+        <li><strong>Reactive fetch</strong>: <code>httpResource</code> modela lectura dependiente de estado, no escritura de negocio.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
+      <p class="font-semibold text-violet-800">🛠️ Notas importantes</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
+        <li>Si usás <code>httpResource</code>, necesitás <code>provideHttpClient()</code>.</li>
+        <li>En Signal Forms, para arrays con <code>&#64;for</code>, trackeá por identidad del field, no por índice suelto.</li>
+        <li>En validaciones cross-field, decidí DÓNDE vive el error: campo puntual, varios campos o nivel form.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
+      <p class="font-semibold text-amber-800">⚠️ Anti patrones</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
+        <li>Usar <strong>Signal Forms</strong> para reescribir todo el proyecto “porque es nuevo”. Migrá donde aporte valor.</li>
+        <li>Mezclar <strong>Reactive Forms + Signal Forms</strong> sin estrategia. La interop existe, pero no para vivir en híbrido eterno.</li>
+        <li>Usar <strong>httpResource</strong> para POST/PUT/DELETE. Eso te mezcla fetching reactivo con mutations de negocio.</li>
+        <li>Leer <code>resource.value()</code> sin guardas cuando puede haber error o estado pendiente.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3 lg:col-span-2">
+      <p class="font-semibold text-fuchsia-800">📌 Regla arquitectónica</p>
+      <p class="mt-1 text-fuchsia-900">
+        Adoptá Angular 21+ por <strong>claridad de modelo mental</strong>, no por moda. Si la API nueva no reduce acoplamiento,
+        complejidad o boilerplate real, todavía no te compró nada.
+      </p>
+    </div>
+  </div>
+</section>

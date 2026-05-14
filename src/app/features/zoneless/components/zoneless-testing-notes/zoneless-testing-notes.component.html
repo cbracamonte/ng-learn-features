@@ -1,0 +1,37 @@
+<section class="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-slate-700">
+  <h2 class="font-semibold text-slate-900">Unit Testing en Zoneless (bien claro)</h2>
+
+  <div class="mt-3 space-y-3 text-xs">
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <p class="font-semibold text-emerald-800">✅ Qué cambia de verdad</p>
+      <p class="mt-1 text-emerald-900">
+        Si removés <code>zone.js</code>/<code>zone.js/testing</code>, los helpers de test basados en Zone dejan de aplicar.
+      </p>
+    </div>
+
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
+      <p class="font-semibold text-amber-800">⚠️ fakeAsync / tick</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
+        <li><strong>fakeAsync</strong> requiere Zone.js.</li>
+        <li>Con suite realmente zoneless (sin <code>zone.js/testing</code>), no lo uses.</li>
+        <li>Preferí <strong>async/await + fixture.whenStable()</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
+      <p class="font-semibold text-sky-800">🧪 Patrón recomendado</p>
+      <ol class="mt-1 list-decimal space-y-1 pl-5 text-sky-900">
+        <li>Creá el fixture: <code>const fixture = TestBed.createComponent(MyComponent)</code>.</li>
+        <li>Esperá estabilidad: <code>await fixture.whenStable()</code>.</li>
+        <li>Validá UI/estado con assertions normales.</li>
+      </ol>
+    </div>
+
+    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3">
+      <p class="font-semibold text-fuchsia-800">🧠 Regla senior</p>
+      <p class="mt-1 text-fuchsia-900">
+        Testeá como corre producción: si producción es zoneless, configurá TestBed zoneless y evitá depender de magia de Zone.
+      </p>
+    </div>
+  </div>
+</section>

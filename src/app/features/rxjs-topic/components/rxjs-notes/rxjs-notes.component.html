@@ -1,0 +1,65 @@
+<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+  <h2 class="font-semibold text-slate-900">Notas senior RxJS (visual + avanzado)</h2>
+
+  <div class="mt-3 grid gap-3 text-xs lg:grid-cols-2">
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <p class="font-semibold text-emerald-800">✅ Estrategias de flattening: lectura senior</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-emerald-900">
+        <li><strong>switchMap</strong>: cambia de contexto. Cancela el inner anterior porque el último intent vale más que el previo.</li>
+        <li><strong>concatMap</strong>: preserva orden y no pierde eventos. Tradeoff: aumenta latencia si la cola crece.</li>
+        <li><strong>mergeMap</strong>: maximiza rendimiento(throughput) con trabajo paralelo. Tradeoff: podés perder orden y saturar backend.</li>
+        <li><strong>exhaustMap</strong>: protege una sección crítica mientras hay un inner activo. Ideal submit/login/pagos.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
+      <p class="font-semibold text-sky-800">🧪 Definiciones detalladas de pipe operators</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-sky-900">
+        <li><strong>map</strong>: proyección pura. Cambia forma del dato, no el tiempo ni la cantidad de emisiones.</li>
+        <li><strong>filter</strong>: guard clause reactiva. Reduce ruido antes de entrar a operadores caros.</li>
+        <li><strong>debounceTime</strong>: compacta bursts temporales; excelente para inputs humanos, mala idea para eventos que no deben perderse.</li>
+        <li><strong>distinctUntilChanged</strong>: compara contra la emisión inmediatamente anterior. Con objetos, sin comparator custom, compara referencia.</li>
+        <li><strong>tap</strong>: observabilidad y side effects no críticos. Si tu lógica depende de <code>tap</code>, probablemente está mal ubicada.</li>
+        <li><strong>startWith</strong>: define estado inicial del stream para UI o composición temprana.</li>
+        <li><strong>catchError</strong>: intercepta error en el tramo actual. OJO: dónde lo pongas cambia qué parte del pipeline se recupera.</li>
+        <li><strong>finalize</strong>: cleanup transversal; corre en complete, error o unsubscribe.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
+      <p class="font-semibold text-violet-800">🔗 Composición y caching</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
+        <li><strong>forkJoin</strong>: sincronización final. Útil cuando TODAS las fuentes deben completar para renderizar algo coherente.</li>
+        <li><strong>combineLatest</strong>: cálculo reactivo continuo. Pensalo como una planilla que recalcula con el último valor de cada columna.</li>
+        <li><strong>withLatestFrom</strong>: evento principal + contexto. El stream secundario no “dispara”; solo aporta snapshot.</li>
+        <li><strong>zip</strong>: lockstep estricto. Une emisión 1 con 1, 2 con 2; útil cuando necesitás pairing determinista.</li>
+        <li><strong>shareReplay</strong>: multicast + replay. Comparte una ejecución y entrega el último valor a suscriptores tardíos.</li>
+        <li><strong>shareReplay con refCount</strong>: libera source cuando no quedan suscriptores. Sin estrategia, podés dejar procesos vivos o cache eterna.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
+      <p class="font-semibold text-amber-800">⚠️ Anti patrones RxJS</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
+        <li><strong>Nested subscribes</strong>: fragmenta flujo, errores y cleanup. Componé con operadores, no con callbacks encadenados.</li>
+        <li><strong>Exponer Subjects públicamente</strong>: rompe encapsulación. Exponé <code>asObservable()</code>, no el write API.</li>
+        <li><strong>shareReplay(1) por reflejo</strong>: sin pensar lifecycle/cache invalidation es una bomba de memoria o datos stale.</li>
+        <li><strong>mergeMap para acciones no idempotentes</strong>: podés disparar writes simultáneos y dejar estado inconsistente.</li>
+        <li><strong>distinctUntilChanged con objetos mutables</strong>: si mutás la misma referencia, el operador no te salva conceptualmente.</li>
+        <li><strong>tap para lógica de negocio</strong>: convierte el pipeline en una casa con cables por afuera. Difícil de testear y razonar.</li>
+        <li><strong>catchError al final sin criterio</strong>: puede “comerse” errores importantes y dejar la UI silenciosamente rota.</li>
+        <li><strong>No modelar loading/error/empty</strong>: stream bonito, UX mala. La reactividad no reemplaza el diseño de estados.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3 lg:col-span-2">
+      <p class="font-semibold text-fuchsia-800">🧠 Reglas senior para decidir</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-fuchsia-900">
+        <li>Primero definí la semántica de concurrencia: <strong>cancelar, encolar, paralelizar o ignorar</strong>. Recién ahí elegís el operador.</li>
+        <li>Distinguí <strong>cold vs hot observables</strong>: si cada suscripción repite trabajo, evaluá multicasting/caching conscientemente.</li>
+        <li>Diseñá streams como contratos de dominio, no solo como trucos de UI.</li>
+        <li>Si una decisión afecta orden, idempotencia, cache o lifetime, ya es una decisión arquitectónica, no “solo RxJS”.</li>
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,7 @@
+<section class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">computed()</h2>
+  <p class="mt-2 text-xs text-slate-600">Valor derivado sin estado duplicado.</p>
+  <p class="mt-3 text-sm text-slate-700">Precio: {{ price() }} | Cantidad: {{ quantity() }}</p>
+  <p class="mt-1 text-xl font-semibold text-slate-900">Total: {{ total() }}</p>
+  <button type="button" (click)="addQty.emit()" class="mt-3 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white">Agregar unidad</button>
+</section>

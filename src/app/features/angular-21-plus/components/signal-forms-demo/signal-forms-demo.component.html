@@ -1,0 +1,62 @@
+<section class="rounded-xl border border-cyan-200 bg-cyan-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">Signal Forms (experimental)</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    Caso real: registro con regla cross-field y validación condicional. El <strong>modelo signal</strong> es la única fuente de verdad.
+  </p>
+
+  <div class="mt-3 grid gap-3 text-xs">
+    <label class="space-y-1">
+      <span class="font-medium text-slate-700">Tipo de cuenta</span>
+      <select class="w-full rounded border border-slate-300 bg-white px-3 py-2" [formField]="registrationForm.accountType">
+        <option value="personal">personal</option>
+        <option value="business">business</option>
+      </select>
+    </label>
+
+    <label class="space-y-1">
+      <span class="font-medium text-slate-700">Email</span>
+      <input type="email" class="w-full rounded border border-slate-300 bg-white px-3 py-2" [formField]="registrationForm.email" />
+      @if (registrationForm.email().touched() && registrationForm.email().invalid()) {
+        <span class="text-rose-700">{{ registrationForm.email().errors()[0]?.message }}</span>
+      }
+    </label>
+
+    @if (isBusiness()) {
+      <label class="space-y-1">
+        <span class="font-medium text-slate-700">Company name</span>
+        <input class="w-full rounded border border-slate-300 bg-white px-3 py-2" [formField]="registrationForm.companyName" />
+        @if (registrationForm.companyName().touched() && registrationForm.companyName().invalid()) {
+          <span class="text-rose-700">{{ registrationForm.companyName().errors()[0]?.message }}</span>
+        }
+      </label>
+    }
+
+    <label class="space-y-1">
+      <span class="font-medium text-slate-700">Password</span>
+      <input type="password" class="w-full rounded border border-slate-300 bg-white px-3 py-2" [formField]="registrationForm.password" />
+    </label>
+
+    <label class="space-y-1">
+      <span class="font-medium text-slate-700">Confirm password</span>
+      <input type="password" class="w-full rounded border border-slate-300 bg-white px-3 py-2" [formField]="registrationForm.confirmPassword" />
+      @if (registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()) {
+        <span class="text-rose-700">{{ registrationForm.confirmPassword().errors()[0]?.message }}</span>
+      }
+    </label>
+  </div>
+
+  <div class="mt-4 flex gap-2 text-xs">
+    <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="reset()">Reset</button>
+    <span class="rounded bg-white px-2 py-1">Submit habilitado: <strong>{{ canSubmit() ? 'sí' : 'no' }}</strong></span>
+  </div>
+
+  <div class="mt-3 rounded-lg border border-cyan-200 bg-white p-3 text-xs text-slate-700">
+    <p class="font-semibold text-cyan-800">Qué aprender acá</p>
+    <ul class="mt-1 list-disc space-y-1 pl-5">
+      <li><strong>form(model)</strong>: el modelo signal sigue siendo el source of truth.</li>
+      <li><strong>[formField]</strong>: conecta UI + estado del field sin CVA custom innecesario.</li>
+      <li><strong>required(..., when)</strong>: reglas condicionales declarativas.</li>
+      <li><strong>validate()</strong>: cross-field sin reactive forms ceremonioso.</li>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+<section class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">untracked() en computed</h2>
+  <p class="mt-2 text-xs text-slate-600">
+    Cambiá query y categoría. Vas a ver que <code>trackedLabel</code> reacciona a ambos; <code>untrackedLabel</code> solo a categoría.
+  </p>
+
+  <div class="mt-3 grid gap-2 sm:grid-cols-2">
+    <input
+      #q
+      class="rounded border border-slate-300 bg-white px-3 py-2 text-sm"
+      [value]="query()"
+      (input)="setQuery(q.value)"
+      placeholder="query..."
+    />
+
+    <div class="flex gap-2 text-xs">
+      <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setCategory('all')">all</button>
+      <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setCategory('frontend')">frontend</button>
+      <button type="button" class="rounded border border-slate-300 bg-white px-2 py-1" (click)="setCategory('backend')">backend</button>
+    </div>
+  </div>
+
+  <p class="mt-3 text-xs text-slate-700">{{ trackedLabel() }}</p>
+  <p class="mt-1 text-xs text-slate-700">{{ untrackedLabel() }}</p>
+</section>

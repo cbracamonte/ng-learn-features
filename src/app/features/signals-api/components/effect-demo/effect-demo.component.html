@@ -1,0 +1,14 @@
+<section class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+  <h2 class="text-sm font-semibold text-slate-900">effect()</h2>
+  <p class="mt-2 text-xs text-slate-600">Reacciona a cambios para side effects.</p>
+  <div class="mt-3 flex flex-wrap gap-2">
+    <button type="button" (click)="setQuery.emit('angular')" class="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs">angular</button>
+    <button type="button" (click)="setQuery.emit('signals')" class="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs">signals</button>
+    <button type="button" (click)="setQuery.emit('zoneless')" class="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs">zoneless</button>
+  </div>
+  <ul class="mt-3 space-y-1 text-xs text-slate-700">
+    @for (log of logs(); track log) {
+      <li>• {{ log }}</li>
+    }
+  </ul>
+</section>

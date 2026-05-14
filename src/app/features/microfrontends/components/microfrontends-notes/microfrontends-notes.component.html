@@ -1,0 +1,55 @@
+<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+  <h2 class="font-semibold text-slate-900">Notas senior: microfrontends sin humo</h2>
+
+  <div class="mt-3 grid gap-3 text-xs lg:grid-cols-2">
+    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
+      <p class="font-semibold text-sky-800">🧠 Definiciones claras</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-sky-900">
+        <li><strong>Microfrontend</strong>: partición de frontend por dominios/equipos con despliegue y evolución parcialmente independientes.</li>
+        <li><strong>Federation</strong>: cargar código remoto en runtime sin rebuild completo del host.</li>
+        <li><strong>Remote</strong>: aplicación o módulo expuesto para ser consumido por otro.</li>
+        <li><strong>Host/Shell</strong>: aplicación contenedora que orquesta navegación, layout y composición.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
+      <p class="font-semibold text-violet-800">📌 Qué mirar antes de elegir</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
+        <li><strong>Autonomía real de equipos</strong>: si no existe, quizá no necesitás microfrontends.</li>
+        <li><strong>Versionado compartido</strong>: Angular, design system, auth SDK, router contracts.</li>
+        <li><strong>Observabilidad</strong>: logs, métricas y trazas cross-app.</li>
+        <li><strong>Fallback UX</strong>: qué pasa si un remote no carga.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
+      <p class="font-semibold text-amber-800">⚠️ Anti patrones</p>
+      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
+        <li>Romper un monolito frontend en 8 remotes cuando tenés un solo equipo.</li>
+        <li>Compartir estado global de forma caótica entre remotes.</li>
+        <li>Acoplar remotes por imports internos no versionados.</li>
+        <li>Creer que microfrontends arreglan mala arquitectura de dominio. NO la arreglan.</li>
+      </ul>
+    </div>
+
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <p class="font-semibold text-emerald-800">✅ Regla práctica</p>
+      <p class="mt-1 text-emerald-900">
+        Elegí <strong>Native Federation</strong> si querés alinearte con Angular moderno y minimizar dependencia futura de webpack.
+        Elegí <strong>Webpack Module Federation</strong> si tu organización ya invirtió ahí y el retorno de migrar es bajo.
+      </p>
+    </div>
+
+    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3 lg:col-span-2">
+      <p class="font-semibold text-fuchsia-800">🔥 La verdad incómoda</p>
+      <p class="mt-1 text-fuchsia-900">
+        El problema difícil NO es cargar un remote. El problema difícil es <strong>gobernanza</strong>: contratos, ownership,
+        compatibilidad, CI/CD, observabilidad, rollback y disciplina de equipos. Si eso no existe, la federación es maquillaje.
+      </p>
+    </div>
+  </div>
+
+  <p class="mt-4 text-xs text-slate-500">
+    Verificado con fuentes primarias: Webpack Module Federation es una feature oficial de webpack 5; Native Federation se presenta como enfoque browser-native/ESM y en Angular moderno suele usarse con tooling de Angular Architects.
+  </p>
+</section>

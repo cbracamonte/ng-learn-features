@@ -1,0 +1,22 @@
+<section class="mx-auto max-w-6xl px-6 py-12">
+  <a routerLink="/" class="mb-8 inline-flex text-sm font-medium text-slate-600 hover:text-slate-900">← Volver al home</a>
+
+  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h1 class="text-2xl font-semibold text-slate-900">RxJS Topic</h1>
+    <p class="mt-3 text-slate-600">
+      Programación reactiva con animaciones: estrategias de mapeo, operadores de pipe y composición de múltiples streams.
+    </p>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      <app-rxjs-operator-mapping-demo class="lg:col-span-2" />
+      <app-rxjs-pipe-operators-demo />
+      <app-rxjs-join-operators-demo />
+      <app-rxjs-exhaust-map-demo />
+      <app-rxjs-share-replay-demo />
+    </div>
+
+    <div class="mt-6">
+      <app-rxjs-notes />
+    </div>
+  </article>
+</section>
