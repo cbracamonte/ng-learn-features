@@ -1,0 +1,12 @@
+<section class="rounded-xl border border-sky-200 bg-sky-50 p-4" aria-labelledby="component-scope-title">
+  <h2 id="component-scope-title" class="text-lg font-semibold text-slate-900">2. Providers por componente</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    Cada instancia de componente tiene su propio <code>ElementInjector</code>. Proveer un service en <code>providers</code>
+    crea estado privado por instancia. Esto salva features como editores paralelos, wizards o tabs con drafts independientes.
+  </p>
+
+  <div class="mt-4 grid gap-3 sm:grid-cols-2">
+    <app-di-session-card label="Editor A" />
+    <app-di-session-card label="Editor B" />
+  </div>
+</section>

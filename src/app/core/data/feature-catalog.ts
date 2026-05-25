@@ -37,4 +37,28 @@ export const FEATURE_CATALOG: FeatureCard[] = [
     route: '/features/template-control-flow',
     status: 'Nuevo'
   },
+  {
+    title: 'Lifecycle Hooks',
+    description: 'Legacy hooks y nuevas APIs de render: afterNextRender, afterEveryRender, afterRenderEffect y AfterRenderOptions.',
+    route: '/features/lifecycle-hooks',
+    status: 'Nuevo'
+  },
+  {
+    title: 'Angular Aria',
+    description: 'Directivas headless para patrones WAI-ARIA: accordion, tabs, teclado, foco y screen readers.',
+    route: '/features/angular-aria',
+    status: 'Nuevo'
+  },
+  {
+    title: 'Dependency Injection',
+    description: 'Injectors, providers, InjectionToken, scopes por ruta/componente y resolución jerárquica.',
+    route: '/features/dependency-injection',
+    status: 'Nuevo'
+  },
+  {
+    title: 'Routing Avanzado',
+    description: 'Nested routes, params, query params, guards funcionales, resolvers y providers por ruta.',
+    route: '/features/routing-advanced',
+    status: 'Nuevo'
+  },
 ];

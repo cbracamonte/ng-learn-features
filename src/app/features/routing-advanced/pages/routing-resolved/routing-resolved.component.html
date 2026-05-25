@@ -1,0 +1,42 @@
+<section aria-labelledby="routing-resolved-title">
+  <h2 id="routing-resolved-title" class="text-lg font-semibold text-slate-900">ResolveFn antes de activar</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    Un resolver prepara datos antes de activar la ruta. Sirve cuando la pantalla no tiene sentido sin ese dato inicial.
+    Pero ojo: no bloquees navegación por datos secundarios que podrían cargar dentro del componente.
+  </p>
+
+  <article class="mt-4 rounded-lg border border-violet-200 bg-violet-50 p-4">
+    <p class="text-xs font-semibold uppercase tracking-wide text-violet-700">Proyecto resuelto</p>
+    <h3 class="mt-2 text-lg font-semibold text-slate-900">{{ project().title }}</h3>
+    <dl class="mt-3 grid gap-2 text-xs sm:grid-cols-3">
+      <div>
+        <dt class="font-medium text-slate-900">ID</dt>
+        <dd class="text-slate-700">{{ project().id }}</dd>
+      </div>
+      <div>
+        <dt class="font-medium text-slate-900">Owner</dt>
+        <dd class="text-slate-700">{{ project().owner }}</dd>
+      </div>
+      <div>
+        <dt class="font-medium text-slate-900">Status</dt>
+        <dd class="text-slate-700">{{ project().status }}</dd>
+      </div>
+    </dl>
+    <p class="mt-3 text-xs text-slate-600">Actualizado: {{ project().updatedAt }}</p>
+  </article>
+
+  <div class="mt-4 flex flex-wrap gap-2">
+    <a
+      routerLink="../alpha"
+      class="rounded-lg border border-violet-300 bg-white px-3 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+    >
+      Resolver alpha
+    </a>
+    <a
+      routerLink="../beta"
+      class="rounded-lg border border-violet-300 bg-white px-3 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+    >
+      Resolver beta
+    </a>
+  </div>
+</section>

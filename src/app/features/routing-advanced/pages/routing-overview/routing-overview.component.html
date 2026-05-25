@@ -1,0 +1,25 @@
+<section aria-labelledby="routing-overview-title">
+  <h2 id="routing-overview-title" class="text-lg font-semibold text-slate-900">Mapa mental del router</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    El Router tiene tres piezas base: routes, outlets y links. Lo avanzado aparece cuando esas rutas también modelan permisos,
+    datos, scopes y estado navegable.
+  </p>
+
+  <div class="mt-4 grid gap-3 sm:grid-cols-2">
+    @for (concept of concepts; track concept.name) {
+      <article class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+        <h3 class="text-sm font-semibold text-slate-900"><code>{{ concept.name }}</code></h3>
+        <p class="mt-1 text-xs text-slate-700"><strong>Uso:</strong> {{ concept.explanation }}</p>
+        <p class="mt-1 text-xs text-cyan-950"><strong>Tradeoff:</strong> {{ concept.tradeoff }}</p>
+      </article>
+    }
+  </div>
+
+  <aside class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-950">
+    <h3 class="font-semibold">Regla senior</h3>
+    <p class="mt-1">
+      Primero diseñá la estructura de URL. Después escribí componentes. Si empezás por componentes y después “ves qué ruta le ponés”,
+      estás diseñando una casa empezando por el picaporte.
+    </p>
+  </aside>
+</section>

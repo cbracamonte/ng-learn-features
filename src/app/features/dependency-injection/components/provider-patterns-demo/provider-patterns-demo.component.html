@@ -1,0 +1,17 @@
+<section class="rounded-xl border border-violet-200 bg-violet-50 p-4" aria-labelledby="provider-patterns-title">
+  <h2 id="provider-patterns-title" class="text-lg font-semibold text-slate-900">3. Provider patterns</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    Un provider no es “poner un service en un array”. Es un contrato: token → estrategia de creación/resolución.
+  </p>
+
+  <div class="mt-4 grid gap-3">
+    @for (pattern of patterns; track pattern.name) {
+      <article class="rounded-lg border border-violet-200 bg-white p-3">
+        <h3 class="text-sm font-semibold text-slate-900"><code>{{ pattern.name }}</code></h3>
+        <p class="mt-1 text-xs text-slate-700"><strong>Qué hace:</strong> {{ pattern.summary }}</p>
+        <p class="mt-1 text-xs text-slate-700"><strong>Cuándo:</strong> {{ pattern.useCase }}</p>
+        <p class="mt-1 text-xs text-violet-950"><strong>Ojo:</strong> {{ pattern.warning }}</p>
+      </article>
+    }
+  </div>
+</section>

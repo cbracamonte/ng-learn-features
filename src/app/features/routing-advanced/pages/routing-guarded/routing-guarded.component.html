@@ -1,0 +1,26 @@
+<section aria-labelledby="routing-guarded-title">
+  <h2 id="routing-guarded-title" class="text-lg font-semibold text-slate-900">Functional guards</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    Esta pantalla pasó por <code>canActivateChild</code> del parent y por <code>canActivate</code> propio.
+    Ambos guards pueden inyectar providers de ruta porque corren en ese contexto de inyección.
+  </p>
+
+  <dl class="mt-4 grid gap-3 text-xs sm:grid-cols-2">
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <dt class="font-semibold text-emerald-950">Rol requerido por data</dt>
+      <dd class="mt-1 text-emerald-900">{{ requiredRole }}</dd>
+    </div>
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+      <dt class="font-semibold text-emerald-950">Rol desde route provider</dt>
+      <dd class="mt-1 text-emerald-900">{{ config.accessRole }}</dd>
+    </div>
+  </dl>
+
+  <aside class="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-950">
+    <h3 class="font-semibold">Advertencia que no se negocia</h3>
+    <p class="mt-1">
+      Los guards del cliente mejoran UX, pero NO son seguridad real. Si el backend no valida permisos, no tenés seguridad:
+      tenés teatro. Angular mismo lo remarca en la documentación.
+    </p>
+  </aside>
+</section>

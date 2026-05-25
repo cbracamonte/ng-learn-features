@@ -1,0 +1,76 @@
+<section class="rounded-xl border border-sky-200 bg-sky-50 p-4" aria-labelledby="aria-tabs-title">
+  <h2 id="aria-tabs-title" class="text-lg font-semibold text-slate-900">Tabs pattern</h2>
+  <p class="mt-2 text-sm text-slate-700">
+    Tabs no son botones sueltos con <code>display: none</code>. Son una relación entre tablist, tabs y tabpanels con foco y selección coherentes.
+  </p>
+
+  <div ngTabs class="mt-4 rounded-xl border border-sky-200 bg-white p-3">
+    <ul
+      ngTabList
+      class="flex flex-wrap gap-2 border-b border-sky-100 pb-3"
+      orientation="horizontal"
+      selectionMode="follow"
+      focusMode="roving"
+      [wrap]="true"
+      [selectedTab]="selectedTab()"
+      (selectedTabChange)="setSelectedTab($event)"
+    >
+      <li
+        ngTab
+        value="patterns"
+        class="cursor-pointer rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 outline-none hover:bg-sky-50 focus:ring-2 focus:ring-sky-500 data-[active=true]:bg-sky-100 data-[active=true]:text-sky-950"
+      >
+        Patrones
+      </li>
+      <li
+        ngTab
+        value="keyboard"
+        class="cursor-pointer rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 outline-none hover:bg-sky-50 focus:ring-2 focus:ring-sky-500 data-[active=true]:bg-sky-100 data-[active=true]:text-sky-950"
+      >
+        Teclado
+      </li>
+      <li
+        ngTab
+        value="pitfalls"
+        class="cursor-pointer rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 outline-none hover:bg-sky-50 focus:ring-2 focus:ring-sky-500 data-[active=true]:bg-sky-100 data-[active=true]:text-sky-950"
+      >
+        Errores
+      </li>
+    </ul>
+
+    <div ngTabPanel value="patterns" class="pt-4" [class.hidden]="selectedTab() !== 'patterns'">
+      <ng-template ngTabContent>
+        <div class="rounded-lg bg-sky-50 p-3 text-sm text-slate-700">
+          Angular Aria incluye patrones como accordion, tabs, menu, toolbar, listbox, combobox, tree y grid. No son “componentes lindos”:
+          son comportamiento accesible reutilizable.
+        </div>
+      </ng-template>
+    </div>
+
+    <div ngTabPanel value="keyboard" class="pt-4" [class.hidden]="selectedTab() !== 'keyboard'">
+      <ng-template ngTabContent>
+        <div class="rounded-lg bg-sky-50 p-3 text-sm text-slate-700">
+          En esta demo, el tablist usa roving tabindex y selección al seguir foco. Probá Tab para entrar y flechas para moverte.
+          Si no testeás teclado, no sabés si tu componente existe para todos los usuarios.
+        </div>
+      </ng-template>
+    </div>
+
+    <div ngTabPanel value="pitfalls" class="pt-4" [class.hidden]="selectedTab() !== 'pitfalls'">
+      <ng-template ngTabContent>
+        <div class="rounded-lg bg-amber-50 p-3 text-sm text-amber-950">
+          Error típico: agregar <code>role="tab"</code> a mano y olvidarte de foco, selección, relación con panel y estados disabled.
+          ARIA no arregla HTML roto; ARIA mal usado lo empeora.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <aside class="mt-4 rounded-lg border border-sky-200 bg-white p-3 text-xs text-sky-950">
+    <h3 class="font-semibold">Criterio senior</h3>
+    <p class="mt-1">
+      Usá Angular Aria cuando querés comportamiento accesible headless. Si lo único que necesitás es un botón, usá
+      <code>&lt;button&gt;</code>. Menos magia, más fundamentos.
+    </p>
+  </aside>
+</section>
