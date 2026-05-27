@@ -1,8 +1,9 @@
-import { Component, effect, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-effect-cleanup-demo',
-  templateUrl: './effect-cleanup-demo.component.html'
+  templateUrl: './effect-cleanup-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EffectCleanupDemoComponent {
   readonly enabled = signal(false);

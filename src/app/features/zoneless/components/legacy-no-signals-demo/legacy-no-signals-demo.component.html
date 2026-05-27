@@ -1,6 +1,6 @@
 <section class="rounded-xl border border-rose-200 bg-rose-50 p-4">
-  <h2 class="text-sm font-semibold text-rose-900">Legacy sin signals (falla)</h2>
-  <p class="mt-2 text-xs text-rose-700">Mutar propiedad en async sin avisar CD no está bien para zoneless.</p>
+  <h3 class="text-sm font-semibold text-rose-900">Propiedad común sin notificación (incorrecto)</h3>
+  <p class="mt-2 text-xs text-rose-700">El timer cambia memoria, pero no comunica a Angular que debe renderizar.</p>
 
   <p class="mt-3 text-2xl font-semibold text-rose-900">{{ legacyCounter }}</p>
 
@@ -9,6 +9,6 @@
     (click)="runLegacyAsyncWithoutNotification()"
     class="mt-3 rounded-lg bg-rose-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-rose-600"
   >
-    Ejecutar legacy
+    Ejecutar mutación silenciosa
   </button>
 </section>

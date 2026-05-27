@@ -1,8 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-computed-demo',
-  templateUrl: './computed-demo.component.html'
+  templateUrl: './computed-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ComputedDemoComponent {
   readonly price = input.required<number>();

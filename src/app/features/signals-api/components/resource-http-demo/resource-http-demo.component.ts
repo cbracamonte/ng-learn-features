@@ -1,4 +1,4 @@
-import { Component, linkedSignal, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, linkedSignal, resource, signal } from '@angular/core';
 
 type TodoDto = {
   id: number;
@@ -8,7 +8,8 @@ type TodoDto = {
 
 @Component({
   selector: 'app-resource-http-demo',
-  templateUrl: './resource-http-demo.component.html'
+  templateUrl: './resource-http-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourceHttpDemoComponent {
   readonly userId = signal(1);

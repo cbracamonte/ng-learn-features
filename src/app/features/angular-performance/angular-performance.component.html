@@ -1,0 +1,134 @@
+<section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+  <a
+    routerLink="/"
+    class="mb-6 inline-flex rounded-md px-1 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-700 sm:mb-8"
+  >
+    ← Volver al home
+  </a>
+
+  <header class="rounded-3xl border border-slate-800 bg-slate-950 p-5 text-white shadow-sm sm:p-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+      Angular Senior · Performance Engineering
+    </p>
+    <h1 class="mt-3 text-3xl font-semibold tracking-tight">Performance en Angular: medir, diagnosticar y decidir</h1>
+    <p class="mt-4 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
+      Una aplicación rápida no nace de activar opciones al azar. Nace de identificar la experiencia
+      lenta, medirla en usuarios reales, aislar su causa y aplicar el mecanismo Angular o web que
+      resuelve ESE cuello de botella con un tradeoff entendido.
+    </p>
+
+    <div class="mt-6 rounded-xl border border-cyan-400/30 bg-cyan-950/40 p-4 text-sm text-cyan-50">
+      <p class="font-semibold text-cyan-200">Regla de nivel Senior</p>
+      <p class="mt-2 leading-6">
+        <strong>Perfilar antes de optimizar.</strong> <code>OnPush</code>, signals, zoneless,
+        <code>&#64;defer</code>, SSR o caching no son medallas técnicas: son decisiones que deben
+        mejorar una métrica o un flujo crítico sin romper mantenibilidad, accesibilidad ni UX.
+      </p>
+    </div>
+
+    <nav class="mt-7" aria-label="Ruta de estudio de performance en Angular">
+      <ol class="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-5">
+        <li>
+          <a
+            routerLink="."
+            fragment="catalogo"
+            class="block rounded-xl border border-cyan-500/60 bg-cyan-500/10 p-3 transition hover:border-cyan-300 hover:bg-cyan-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+          >
+            <strong class="mr-1 text-cyan-300">00</strong> Mapa
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="metricas"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-cyan-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+          >
+            <strong class="mr-1 text-cyan-300">01</strong> Métricas
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="carga"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-cyan-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+          >
+            <strong class="mr-1 text-cyan-300">02</strong> Carga
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="runtime"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-cyan-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+          >
+            <strong class="mr-1 text-cyan-300">03</strong> Runtime
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="entrevista"
+            class="block rounded-xl border border-cyan-500/60 bg-cyan-500/10 p-3 transition hover:border-cyan-300 hover:bg-cyan-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+          >
+            <strong class="mr-1 text-cyan-300">04</strong> Senior
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </header>
+
+  <main class="mt-8 flex flex-col gap-6">
+    <section id="catalogo" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-cyan-700">Mapa completo de estudio</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950">Qué debe dominar una persona Senior</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Performance es un sistema: carga inicial, interacción, estabilidad visual, trabajo del
+        main thread, red, memoria y observabilidad se afectan mutuamente.
+      </p>
+
+      <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+          <h3 class="font-semibold text-sky-950">Medir primero</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-sky-950">
+            <li>LCP, INP y CLS</li>
+            <li>Campo frente a laboratorio</li>
+            <li>Budgets y percentil 75</li>
+            <li>DevTools y profiling</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+          <h3 class="font-semibold text-emerald-950">Entregar menos</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-emerald-950">
+            <li>Lazy routes y &#64;defer</li>
+            <li>Imágenes y fuentes</li>
+            <li>SSR e hidratación</li>
+            <li>Red y terceros</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+          <h3 class="font-semibold text-amber-950">Renderizar mejor</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-950">
+            <li>Change detection</li>
+            <li>OnPush, signals y zoneless</li>
+            <li>Listas y cálculos costosos</li>
+            <li>Layout y memoria</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+          <h3 class="font-semibold text-violet-950">Decidir como Senior</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-violet-950">
+            <li>Hipótesis verificables</li>
+            <li>Tradeoffs documentados</li>
+            <li>Regresiones protegidas</li>
+            <li>Respuesta de entrevista</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <app-performance-foundations class="block" />
+    <app-angular-loading-performance class="block" />
+    <app-angular-runtime-performance class="block" />
+    <app-performance-interview-checklist class="block" />
+  </main>
+</section>

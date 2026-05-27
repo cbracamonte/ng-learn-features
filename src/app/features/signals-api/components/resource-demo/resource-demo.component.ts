@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 type Topic = 'signals' | 'computed' | 'effect';
 type ResourceStatus = 'idle' | 'loading' | 'reloading' | 'resolved' | 'error' | 'local';
@@ -6,6 +6,7 @@ type ResourceStatus = 'idle' | 'loading' | 'reloading' | 'resolved' | 'error' | 
 @Component({
   selector: 'app-resource-demo',
   templateUrl: './resource-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourceDemoComponent {
   readonly status = input.required<ResourceStatus>();

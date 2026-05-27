@@ -1,55 +1,120 @@
-<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-  <h2 class="font-semibold text-slate-900">Notas senior (versión didáctica)</h2>
+<section id="entrevista" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Parte 7 · Cierre de estudio</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Checklist Senior para entrevistas de Angular Signals</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    Una respuesta sólida no recita funciones: explica ownership, dependencias, límites y evolución
+    segura de un sistema. Utiliza este bloque como repaso antes de una entrevista técnica.
+  </p>
 
-  <div class="mt-3 space-y-3 text-xs">
-    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-      <p class="font-semibold text-emerald-800">✅ Regla base de ownership</p>
-      <p class="mt-1 text-emerald-900">
-        Elegí un <strong>owner de estado</strong> (signal o stream RxJS). Convertí en los bordes, no hagas ping-pong constante.
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+      <h3 class="font-semibold text-emerald-950">Respuesta corta que debes dominar</h3>
+      <p class="mt-3 text-sm leading-6 text-emerald-950">
+        “Uso <code>signal()</code> como estado fuente de UI y <code>computed()</code> para
+        derivaciones, porque evita duplicación. Reservo <code>effect()</code> para sincronizar con
+        sistemas imperativos. Si necesito composición temporal o cancelación compleja, mantengo
+        RxJS como owner y convierto a signal solo en el borde de presentación.”
       </p>
-    </div>
+    </article>
 
-    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
-      <p class="font-semibold text-sky-800">🧠 Mapa mental rápido</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-sky-900">
-        <li><code>signal</code> guarda estado.</li>
-        <li><code>computed</code> deriva estado.</li>
-        <li><code>effect</code> ejecuta side effects.</li>
-        <li><code>linkedSignal</code> sincroniza estado editable.</li>
-        <li><code>resource</code> resuelve estado async.</li>
-      </ul>
-    </div>
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">Mapa de elección rápida</h3>
+      <dl class="mt-3 space-y-2 text-sm text-sky-950">
+        <div class="flex gap-2"><dt class="font-semibold"><code>signal()</code>:</dt><dd>estado mutable actual.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>computed()</code>:</dt><dd>estado derivado puro.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>effect()</code>:</dt><dd>salida imperativa.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>linkedSignal()</code>:</dt><dd>estado editable dependiente.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>resource()</code>:</dt><dd>carga async reactiva; experimental.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold">RxJS:</dt><dd>flujo de eventos y operadores temporales.</dd></div>
+      </dl>
+    </article>
+  </div>
 
-    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
-      <p class="font-semibold text-violet-800">✅ Cuándo usar cada API</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
-        <li><strong>signal()</strong>: estado local mutable y explícito.</li>
-        <li><strong>computed()</strong>: dato derivado, sin duplicar estado.</li>
-        <li><strong>effect()</strong>: integración imperativa (logs, storage, analytics).</li>
-        <li><strong>linkedSignal()</strong>: selección editable que se resincroniza con fuente reactiva.</li>
-        <li><strong>toObservable()</strong>: cuando necesitás operadores RxJS (debounce/switchMap/retry).</li>
-        <li><strong>toSignal()</strong>: consumir Observable como lectura simple en template/computed/effect.</li>
-      </ul>
-    </div>
+  <div class="mt-5 overflow-x-auto">
+    <table class="w-full min-w-[42rem] border-separate border-spacing-0 text-left text-sm">
+      <caption class="mb-3 text-left font-semibold text-slate-950">Preguntas Senior y puntos que deben aparecer en tu respuesta</caption>
+      <thead>
+        <tr class="text-slate-600">
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Pregunta</th>
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Respuesta con criterio</th>
+        </tr>
+      </thead>
+      <tbody class="align-top text-slate-700">
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Signals reemplaza RxJS?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">No. Signals modela estado legible síncronamente; RxJS modela streams, tiempo, cancelación y composición.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Cuándo usar effect?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">Para comunicar estado reactivo con APIs imperativas; no para propagar estado que puede derivarse.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Qué optimiza computed?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">Evalúa de forma lazy, memoiza resultados y rastrea dependencias dinámicamente según lecturas ejecutadas.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Cómo integras Observables?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6"><code>toSignal()</code> en consumo de UI; <code>toObservable()</code> si un signal alimenta operadores RxJS. Evito ping-pong.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="px-3 py-3 font-medium text-slate-950">¿Es resource estándar estable?</th>
+          <td class="px-3 py-3 leading-6">No en Angular v21: es experimental; evalúo riesgos antes de basar infraestructura crítica en él.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
-      <p class="font-semibold text-amber-800">⚠️ Errores comunes</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
-        <li>Guardar en <code>signal</code> un valor que podrías derivar con <code>computed</code>.</li>
-        <li>Usar <code>effect</code> para “propagar estado” entre signals (acopla y complica debug).</li>
-        <li>Hacer conversiones signal ↔ observable varias veces sin necesidad.</li>
-        <li>Usar <code>requireSync: true</code> con fuentes async.</li>
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Anti-patterns que te restan seniority</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+        <li>Guardar <code>total</code> en otro signal si depende de <code>price</code> y <code>quantity</code>.</li>
+        <li>Sincronizar signals con un <code>effect()</code> cuando corresponde <code>computed()</code>.</li>
+        <li>Crear <code>toSignal(observable$)</code> repetidamente: cada llamada suscribe inmediatamente.</li>
+        <li>Usar <code>requireSync: true</code> con una fuente que no emite síncronamente.</li>
+        <li>Mutar profundamente un objeto expuesto como readonly y asumir protección total.</li>
       </ul>
-    </div>
+    </article>
 
-    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3">
-      <p class="font-semibold text-fuchsia-800">🛠️ Detalles finos senior</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-fuchsia-900">
-        <li><strong>untracked()</strong>: leé snapshots sin crear dependencia reactiva.</li>
-        <li><strong>onCleanup en effect()</strong>: liberá timers/listeners/sockets para evitar leaks.</li>
-        <li><strong>equal</strong>: personalizá igualdad para frenar recomputaciones inútiles.</li>
-        <li><strong>initialValue</strong> en <code>toSignal</code>: define estado inicial claro de UI.</li>
+    <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+      <h3 class="font-semibold text-violet-950">Detalles Expert para destacar</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-violet-950">
+        <li><code>equal</code> permite una función de igualdad cuando la semántica requiere evitar invalidaciones equivalentes.</li>
+        <li><code>onCleanup</code> libera trabajo anterior en efectos largos, timers o listeners.</li>
+        <li><code>untracked()</code> expresa una lectura incidental, no una dependencia.</li>
+        <li>Leer un signal dentro de un template <code>OnPush</code> permite que Angular marque correctamente ese componente.</li>
+        <li>Signals encajan con zoneless porque notifican explícitamente cambios de estado consumido por la vista.</li>
       </ul>
-    </div>
+    </article>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <h3 class="font-semibold text-slate-950">Fuentes oficiales para profundizar</h3>
+    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
+      <li>
+        <a class="font-medium text-emerald-700 underline hover:text-emerald-900" href="https://angular.dev/guide/signals">
+          Signals overview
+        </a>
+        — derivaciones, efectos, igualdad y <code>untracked()</code>.
+      </li>
+      <li>
+        <a class="font-medium text-emerald-700 underline hover:text-emerald-900" href="https://angular.dev/guide/signals/linked-signal">
+          Dependent state with linkedSignal
+        </a>
+        — estado editable vinculado a una fuente.
+      </li>
+      <li>
+        <a class="font-medium text-emerald-700 underline hover:text-emerald-900" href="https://angular.dev/ecosystem/rxjs-interop">
+          RxJS interop
+        </a>
+        — <code>toSignal()</code>, <code>toObservable()</code> y <code>requireSync</code>.
+      </li>
+      <li>
+        <a class="font-medium text-emerald-700 underline hover:text-emerald-900" href="https://angular.dev/guide/signals/resource">
+          Async reactivity with resources
+        </a>
+        — estado asíncrono y advertencia experimental.
+      </li>
+    </ul>
   </div>
 </section>

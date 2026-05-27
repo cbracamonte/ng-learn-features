@@ -1,5 +1,5 @@
 <section class="rounded-xl border border-cyan-200 bg-cyan-50 p-4">
-  <h2 class="text-sm font-semibold text-slate-900">Interop: toObservable() + toSignal()</h2>
+  <h3 class="text-sm font-semibold text-slate-900">Interop: toObservable() + toSignal()</h3>
   <p class="mt-2 text-xs text-slate-600">
     Objetivo: puentear estado local con RxJS sin mezclar responsabilidades.
   </p>
@@ -29,9 +29,9 @@
   </ul>
 
   <ul class="mt-3 list-disc space-y-1 pl-5 text-xs text-slate-700">
-    <li><strong>toObservable(signal)</strong>: usalo cuando necesitás operadores RxJS (debounce/switchMap/retry).</li>
-    <li><strong>toSignal(observable)</strong>: usalo para render reactivo en template sin <code>async</code> pipe.</li>
+    <li><strong>toObservable(signal)</strong>: úsalo cuando necesites operadores RxJS (debounce/switchMap/retry).</li>
+    <li><strong>toSignal(observable)</strong>: úsalo para render reactivo en template sin <code>async</code> pipe.</li>
     <li><strong>initialValue</strong> en toSignal: clave para evitar <code>undefined</code> antes de la primera emisión async.</li>
-    <li>Evitá conversiones ida y vuelta innecesarias: elegí un owner de estado y convertí solo en el borde.</li>
+    <li>Evita conversiones ida y vuelta innecesarias: elige un owner de estado y convierte solo en el borde.</li>
   </ul>
 </section>

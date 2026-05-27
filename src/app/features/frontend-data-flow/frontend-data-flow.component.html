@@ -1,0 +1,114 @@
+<section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+  <a
+    routerLink="/"
+    class="mb-6 inline-flex rounded-md px-1 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 sm:mb-8"
+  >
+    ← Volver al home
+  </a>
+
+  <header class="rounded-3xl border border-slate-800 bg-slate-950 p-5 text-white shadow-sm sm:p-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-300">
+      Frontend Senior · Data Fetching & API State
+    </p>
+    <h1 class="mt-3 text-3xl font-semibold tracking-tight">Comunicación con APIs, estado remoto y valor agregado de Angular</h1>
+    <p class="mt-4 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
+      Consumir una API no es “hacer un GET”. Es diseñar contratos, estados de UI, errores,
+      cancelación, caché, seguridad, concurrencia y testing. Angular aporta una capa robusta con
+      <code>HttpClient</code>, interceptors, RxJS, signals, <code>httpResource</code> y soporte SSR.
+    </p>
+
+    <div class="mt-6 rounded-xl border border-indigo-400/30 bg-indigo-950/40 p-4 text-sm text-indigo-50">
+      <p class="font-semibold text-indigo-200">Regla Senior</p>
+      <p class="mt-2 leading-6">
+        El estado remoto NO es igual al estado local. Tiene latencia, errores, autorización,
+        expiración, reintentos, orden temporal y consistencia eventual. Si ignoras eso, construyes
+        una UI que funciona en demo y falla en producción.
+      </p>
+    </div>
+
+    <nav class="mt-7" aria-label="Ruta de estudio de data fetching y Angular">
+      <ol class="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-5">
+        <li>
+          <a routerLink="." fragment="catalogo" class="block rounded-xl border border-indigo-500/60 bg-indigo-500/10 p-3 transition hover:border-indigo-300 hover:bg-indigo-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300">
+            <strong class="mr-1 text-indigo-300">00</strong> Mapa
+          </a>
+        </li>
+        <li>
+          <a routerLink="." fragment="fundamentos" class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-indigo-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300">
+            <strong class="mr-1 text-indigo-300">01</strong> Fundamentos
+          </a>
+        </li>
+        <li>
+          <a routerLink="." fragment="arquitectura" class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-indigo-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300">
+            <strong class="mr-1 text-indigo-300">02</strong> Angular
+          </a>
+        </li>
+        <li>
+          <a routerLink="." fragment="estado" class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-indigo-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300">
+            <strong class="mr-1 text-indigo-300">03</strong> Estado
+          </a>
+        </li>
+        <li>
+          <a routerLink="." fragment="entrevista" class="block rounded-xl border border-indigo-500/60 bg-indigo-500/10 p-3 transition hover:border-indigo-300 hover:bg-indigo-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300">
+            <strong class="mr-1 text-indigo-300">04</strong> Senior
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </header>
+
+  <main class="mt-8 flex flex-col gap-6">
+    <section id="catalogo" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700">Mapa completo de estudio</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950">Qué debes dominar para APIs en frontend</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Este tópico conecta el problema frontend genérico con la implementación Angular correcta:
+        contratos HTTP, interceptors, estado remoto, concurrencia y pruebas.
+      </p>
+
+      <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+          <h3 class="font-semibold text-sky-950">Contrato API</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-sky-950">
+            <li>DTO frente a modelo de UI</li>
+            <li>HTTP semantics</li>
+            <li>Errores y validación</li>
+            <li>Idempotencia</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+          <h3 class="font-semibold text-indigo-950">Angular HTTP</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-indigo-950">
+            <li><code>HttpClient</code> tipado</li>
+            <li>Interceptors funcionales</li>
+            <li><code>HttpContext</code></li>
+            <li>Testing utilities</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+          <h3 class="font-semibold text-amber-950">Estado remoto</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-950">
+            <li>Loading / error / empty</li>
+            <li>Cancelación y race conditions</li>
+            <li>Caché e invalidación</li>
+            <li>RxJS, signals y resources</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+          <h3 class="font-semibold text-emerald-950">Operación Senior</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-emerald-950">
+            <li>Auth y CSRF</li>
+            <li>Observabilidad</li>
+            <li>SSR transfer cache</li>
+            <li>Checklist de entrevista</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <app-data-fetching-foundations class="block" />
+    <app-data-architecture-notes class="block" />
+    <app-data-state-concurrency class="block" />
+    <app-data-interview-checklist class="block" />
+  </main>
+</section>

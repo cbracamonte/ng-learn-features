@@ -88,6 +88,18 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'features/frontend-security',
+    loadComponent: () => import('./features/frontend-security/frontend-security.component').then((m) => m.FrontendSecurityComponent)
+  },
+  {
+    path: 'features/angular-performance',
+    loadComponent: () => import('./features/angular-performance/angular-performance.component').then((m) => m.AngularPerformanceComponent)
+  },
+  {
+    path: 'features/frontend-data-flow',
+    loadComponent: () => import('./features/frontend-data-flow/frontend-data-flow.component').then((m) => m.FrontendDataFlowComponent)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

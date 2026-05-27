@@ -1,0 +1,125 @@
+<section id="entrevista" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-red-700">Parte 4 · Evaluación Senior</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Checklist de entrevista y revisión de seguridad</h2>
+
+  <div class="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+    <h3 class="font-semibold text-emerald-950">Respuesta corta que debes dominar</h3>
+    <p class="mt-3 text-sm leading-6 text-emerald-950">
+      “Angular reduce XSS en templates mediante escape/sanitización contextual y aporta el cliente
+      XSRF en <code>HttpClient</code>. Yo evito bypasses y DOM directo, habilito CSP y Trusted
+      Types, diseño sesiones seguras y exijo autorización/validación servidor-side. Guards, CORS y
+      validaciones de UI no son barreras de autorización.”
+    </p>
+  </div>
+
+  <div class="mt-5 overflow-x-auto">
+    <table class="w-full min-w-[50rem] border-separate border-spacing-0 text-left text-sm">
+      <caption class="mb-3 text-left font-semibold text-slate-950">Matriz: amenaza frente a responsable de la mitigación</caption>
+      <thead>
+        <tr class="text-slate-600">
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Caso</th>
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Angular ayuda con</th>
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Aún debes implementar</th>
+        </tr>
+      </thead>
+      <tbody class="align-top text-slate-700">
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">XSS en template</th>
+          <td class="border-b border-slate-100 px-3 py-3">Escape/sanitización de bindings.</td>
+          <td class="border-b border-slate-100 px-3 py-3">Evitar bypass/DOM directo; CSP + Trusted Types; auditar terceros.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">CSRF con cookie</th>
+          <td class="border-b border-slate-100 px-3 py-3">Header XSRF para mutaciones same-origin.</td>
+          <td class="border-b border-slate-100 px-3 py-3">Backend genera y valida token; cookies seguras; SameSite apropiado.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">Acceso a ruta admin</th>
+          <td class="border-b border-slate-100 px-3 py-3">Guard para UX/navegación.</td>
+          <td class="border-b border-slate-100 px-3 py-3">API autoriza cada acción y objeto solicitado.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">Robo de token</th>
+          <td class="border-b border-slate-100 px-3 py-3">No es una protección de framework.</td>
+          <td class="border-b border-slate-100 px-3 py-3">Minimizar storage accesible a JS; cookie/BFF, XSS defense, rotación y revocación.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">Clickjacking</th>
+          <td class="border-b border-slate-100 px-3 py-3">No lo resuelve el component model.</td>
+          <td class="border-b border-slate-100 px-3 py-3">CSP <code>frame-ancestors</code> o header compatible desde infraestructura.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="px-3 py-3 font-medium text-slate-950">Dependencia comprometida</th>
+          <td class="px-3 py-3">Mantener framework actualizado reduce defects conocidos.</td>
+          <td class="px-3 py-3">Gobernanza de dependencias/terceros, CSP, SRI aplicable y monitoreo.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-3">
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Revisión de código</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+        <li>Buscar <code>bypassSecurityTrust*</code>, DOM directo y sinks HTML/URL.</li>
+        <li>Revisar redirects, iframes y enlaces externos.</li>
+        <li>Auditar storage, logs y exposición de PII/tokens.</li>
+        <li>Confirmar que guards no sustituyen autorización de API.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">Pruebas</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-sky-950">
+        <li>Probar payloads XSS en campos que se renderizan o producen URLs.</li>
+        <li>Probar CSRF/headers y autorización con IDs/roles manipulados.</li>
+        <li>Verificar CSP/Trusted Types en deployment real.</li>
+        <li>Ejecutar análisis de dependencias y pruebas dinámicas autorizadas.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+      <h3 class="font-semibold text-violet-950">Operación</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-violet-950">
+        <li>Actualizar dependencias frente a vulnerabilidades reportadas.</li>
+        <li>Monitorear CSP reports, autenticación y anomalías de API.</li>
+        <li>Rotar credenciales y revocar sesiones ante incidentes.</li>
+        <li>Mantener proceso de disclosure y respuesta a vulnerabilidades.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <h3 class="font-semibold text-slate-950">Fuentes oficiales y guías de referencia</h3>
+    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
+      <li>
+        <a class="font-medium text-red-700 underline hover:text-red-900" href="https://angular.dev/best-practices/security">
+          Angular Security
+        </a>
+        — XSS, sanitización, Trusted Types, CSP y XSRF.
+      </li>
+      <li>
+        <a class="font-medium text-red-700 underline hover:text-red-900" href="https://angular.dev/guide/routing/route-guards">
+          Angular Route Guards
+        </a>
+        — advertencia oficial sobre autorización servidor-side.
+      </li>
+      <li>
+        <a class="font-medium text-red-700 underline hover:text-red-900" href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">
+          OWASP XSS Prevention
+        </a>
+        y
+        <a class="font-medium text-red-700 underline hover:text-red-900" href="https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html">
+          HTML5 Security
+        </a>.
+      </li>
+      <li>
+        <a class="font-medium text-red-700 underline hover:text-red-900" href="https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html">
+          OWASP Session Management
+        </a>
+        y
+        <a class="font-medium text-red-700 underline hover:text-red-900" href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html">
+          Content Security Policy
+        </a>.
+      </li>
+    </ul>
+  </div>
+</section>

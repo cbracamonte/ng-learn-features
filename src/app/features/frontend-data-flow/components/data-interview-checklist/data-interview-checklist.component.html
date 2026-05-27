@@ -1,0 +1,81 @@
+<section id="entrevista" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700">04 · Checklist Senior</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Cómo defender una arquitectura de datos en entrevista</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    La diferencia entre Junior y Senior se ve cuando aparecen fallos: timeouts, sesión expirada,
+    respuestas fuera de orden, caché obsoleta, SSR, métricas y tests.
+  </p>
+
+  <div class="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+    <h3 class="font-semibold text-emerald-950">Respuesta modelo</h3>
+    <p class="mt-2 text-sm leading-6 text-emerald-950">
+      “Separo DTO, dominio y ViewModel; centralizo políticas transversales en interceptors
+      funcionales; modelo loading/error/empty de forma explícita; uso RxJS para concurrencia y
+      cancelación, signals/resources para estado visible cuando aplica; defino caché e invalidación;
+      pruebo services e interceptors con utilidades HTTP de Angular y observo errores en producción.”
+    </p>
+  </div>
+
+  <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200">
+    <table class="min-w-full text-left text-sm">
+      <caption class="sr-only">Checklist de decisiones para data fetching frontend</caption>
+      <thead class="bg-slate-50 text-slate-900">
+        <tr>
+          <th class="px-4 py-3 font-semibold">Decisión</th>
+          <th class="px-4 py-3 font-semibold">Pregunta Senior</th>
+          <th class="px-4 py-3 font-semibold">Angular ayuda con</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 text-slate-700">
+        <tr>
+          <td class="px-4 py-3">Contrato</td>
+          <td class="px-4 py-3">¿El tipo TS representa realmente la respuesta runtime?</td>
+          <td class="px-4 py-3"><code>HttpClient</code> tipado + mappers/parse</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Políticas globales</td>
+          <td class="px-4 py-3">¿Dónde vive auth, retry, timeout, telemetry y correlation id?</td>
+          <td class="px-4 py-3">Interceptors funcionales + DI</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Concurrencia</td>
+          <td class="px-4 py-3">¿Cancelar, encolar, paralelizar o ignorar?</td>
+          <td class="px-4 py-3">RxJS operators y request lifecycle</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Estado UI</td>
+          <td class="px-4 py-3">¿Cómo se representan loading, error, empty y stale?</td>
+          <td class="px-4 py-3">Signals, resources, stores/facades</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">SSR</td>
+          <td class="px-4 py-3">¿Evitas doble fetch sin filtrar datos privados?</td>
+          <td class="px-4 py-3">Transfer cache y configuración HTTP</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Antipatrones</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-rose-950">
+        <li>Suscribirse en componentes sin lifetime ni manejo de error.</li>
+        <li>Copiar headers de auth en cada service en vez de usar interceptor.</li>
+        <li>Confiar en el genérico de <code>HttpClient</code> como si validara JSON.</li>
+        <li>Cachear datos dependientes de permisos sin invalidación.</li>
+        <li>Ocultar 401/403/409 como “ocurrió un error”.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+      <h3 class="font-semibold text-indigo-950">Fuentes oficiales</h3>
+      <ul class="mt-3 space-y-2 text-sm leading-6 text-indigo-950">
+        <li><a class="underline hover:text-indigo-700" href="https://angular.dev/guide/http" target="_blank" rel="noopener noreferrer">Angular · HTTP Client overview</a></li>
+        <li><a class="underline hover:text-indigo-700" href="https://angular.dev/guide/http/making-requests" target="_blank" rel="noopener noreferrer">Angular · Making requests</a></li>
+        <li><a class="underline hover:text-indigo-700" href="https://angular.dev/guide/http/interceptors" target="_blank" rel="noopener noreferrer">Angular · Interceptors</a></li>
+        <li><a class="underline hover:text-indigo-700" href="https://angular.dev/guide/http/http-resource" target="_blank" rel="noopener noreferrer">Angular · httpResource</a></li>
+        <li><a class="underline hover:text-indigo-700" href="https://angular.dev/guide/http/testing" target="_blank" rel="noopener noreferrer">Angular · HTTP testing</a></li>
+      </ul>
+    </article>
+  </div>
+</section>

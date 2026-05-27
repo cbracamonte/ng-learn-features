@@ -61,4 +61,22 @@ export const FEATURE_CATALOG: FeatureCard[] = [
     route: '/features/routing-advanced',
     status: 'Nuevo'
   },
+  {
+    title: 'Frontend + Angular Security',
+    description: 'XSS, XSRF, CSP, Trusted Types, sesiones, autorización, supply chain y checklist Senior.',
+    route: '/features/frontend-security',
+    status: 'Nuevo'
+  },
+  {
+    title: 'Angular Performance',
+    description: 'Core Web Vitals, lazy/defer, imágenes, render, zoneless, hidratación, profiling y checklist Senior.',
+    route: '/features/angular-performance',
+    status: 'Nuevo'
+  },
+  {
+    title: 'Frontend Data Flow',
+    description: 'HTTP, contratos API, interceptors, estado remoto, caché, concurrencia, SSR y testing con Angular.',
+    route: '/features/frontend-data-flow',
+    status: 'Nuevo'
+  },
 ];

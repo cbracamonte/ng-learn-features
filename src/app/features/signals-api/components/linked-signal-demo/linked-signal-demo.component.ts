@@ -1,8 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-linked-signal-demo',
-  templateUrl: './linked-signal-demo.component.html'
+  templateUrl: './linked-signal-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LinkedSignalDemoComponent {
   readonly options = input.required<string[]>();

@@ -1,0 +1,66 @@
+<section id="estado" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-amber-700">03 · Estado remoto, caché y concurrencia</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">El problema difícil no es pedir datos; es mantenerlos correctos</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    Cuando el usuario escribe, navega, reintenta o dispara acciones rápidas, el frontend debe decidir
+    qué request sigue siendo válido, qué dato se muestra y cuándo se invalida.
+  </p>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-4">
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">Cancelar</h3>
+      <p class="mt-2 text-sm leading-6 text-sky-950">
+        Para búsqueda o filtros vivos, el request anterior puede quedar obsoleto. En RxJS, este caso
+        suele modelarse con <code>switchMap</code> si la fuente soporta cancelación.
+      </p>
+    </article>
+    <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+      <h3 class="font-semibold text-emerald-950">Encolar</h3>
+      <p class="mt-2 text-sm leading-6 text-emerald-950">
+        Para guardados secuenciales donde el orden importa, conviene serializar. No todo click
+        repetido debe paralelizarse.
+      </p>
+    </article>
+    <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+      <h3 class="font-semibold text-violet-950">Ignorar</h3>
+      <p class="mt-2 text-sm leading-6 text-violet-950">
+        Para submit en curso, puede ser correcto ignorar acciones repetidas hasta terminar, además
+        de deshabilitar controles por UX.
+      </p>
+    </article>
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Resolver conflicto</h3>
+      <p class="mt-2 text-sm leading-6 text-rose-950">
+        Si dos clientes editan el mismo recurso, un 409 no se arregla con retry ciego. Necesitas
+        política de merge, refresh o decisión del usuario.
+      </p>
+    </article>
+  </div>
+
+  <div class="mt-5 grid gap-4 md:grid-cols-2">
+    <article class="rounded-xl border border-slate-200 p-4">
+      <h3 class="font-semibold text-slate-950">Caché: las preguntas correctas</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700">
+        <li>¿La respuesta depende del usuario, permisos, idioma o feature flags?</li>
+        <li>¿Cuándo se invalida: tiempo, mutación, navegación, evento externo?</li>
+        <li>¿Se permite stale-while-revalidate o debe bloquear hasta refrescar?</li>
+        <li>¿Dónde vive la caché: interceptor, service, store, browser/CDN o servidor?</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-slate-200 p-4">
+      <h3 class="font-semibold text-slate-950">Optimistic UI con responsabilidad</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700">
+        <li>Aplica cuando la operación es predecible y reversible.</li>
+        <li>Guarda snapshot para rollback si falla.</li>
+        <li>Muestra estado pendiente para evitar mentirle al usuario.</li>
+        <li>No ocultes conflictos de autorización, validación o versión.</li>
+      </ul>
+    </article>
+  </div>
+
+  <aside class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
+    <strong>Nota Expert:</strong> RxJS y signals no compiten aquí; resuelven capas distintas. RxJS
+    modela tiempo, cancelación y streams; signals modelan estado actual y derivaciones para UI. Un
+    diseño Senior sabe dónde termina uno y dónde empieza el otro.
+  </aside>
+</section>

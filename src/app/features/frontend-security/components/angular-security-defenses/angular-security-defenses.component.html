@@ -1,0 +1,103 @@
+<section id="angular" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-rose-700">Parte 2 · Framework</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Qué seguridad provee Angular — y dónde termina</h2>
+
+  <div class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
+    <h3 class="font-semibold">Protección principal: XSS en bindings de template</h3>
+    <p class="mt-2 leading-6">
+      Angular trata los valores enlazados como no confiables por defecto. En interpolaciones y
+      bindings aplica escape o sanitización según el contexto del DOM. La práctica preferida es
+      renderizar mediante templates Angular y evitar construir DOM o templates con strings externos.
+    </p>
+  </div>
+
+  <div class="mt-5 overflow-x-auto">
+    <table class="w-full min-w-[46rem] border-separate border-spacing-0 text-left text-sm">
+      <caption class="mb-3 text-left font-semibold text-slate-950">Contextos de seguridad de Angular</caption>
+      <thead>
+        <tr class="text-slate-600">
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Contexto</th>
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Ejemplo</th>
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Criterio seguro</th>
+        </tr>
+      </thead>
+      <tbody class="align-top text-slate-700">
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">HTML</th>
+          <td class="border-b border-slate-100 px-3 py-3"><code>[innerHTML]</code></td>
+          <td class="border-b border-slate-100 px-3 py-3">Angular elimina contenido peligroso; prefiere texto/interpolación si no requiere HTML.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">Style</th>
+          <td class="border-b border-slate-100 px-3 py-3"><code>[style.background]</code></td>
+          <td class="border-b border-slate-100 px-3 py-3">No conviertas estilos externos en una vía para URLs o comportamiento inesperado.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">URL</th>
+          <td class="border-b border-slate-100 px-3 py-3"><code>[href]</code>, <code>[src]</code></td>
+          <td class="border-b border-slate-100 px-3 py-3">Angular sanitiza URLs inseguras; valida destinos permitidos por negocio.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="px-3 py-3 font-medium text-slate-950">Resource URL</th>
+          <td class="px-3 py-3"><code>iframe src</code>, scripts cargables</td>
+          <td class="px-3 py-3">No puede sanitizar código ejecutable arbitrario; requiere allowlist y revisión estricta.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950"><code>bypassSecurityTrust*</code>: zona roja</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+        <li>No “sanitiza”; marca un valor como confiable y evita la protección normal.</li>
+        <li>Debe estar lo más cerca posible del origen, tras validar/armar un valor conocido.</li>
+        <li>Nunca lo uses sobre HTML, URLs o contenido suministrado por usuario o API sin auditoría.</li>
+        <li>Todo uso debe aparecer como finding obligatorio en code review de seguridad.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+      <h3 class="font-semibold text-amber-950">DOM directo y terceros</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-950">
+        <li><code>ElementRef.nativeElement</code>, <code>document</code> y plugins DOM pueden omitir sanitización Angular.</li>
+        <li>No introduzcas datos no confiables en <code>innerHTML</code> o sinks equivalentes manualmente.</li>
+        <li>Si una integración lo exige, aplica sanitización contextual y revisa CSP/Trusted Types.</li>
+        <li>Nunca construyas templates Angular concatenando contenido de usuarios.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">XSRF con <code>HttpClient</code></h3>
+      <p class="mt-2 text-sm leading-6 text-sky-950">
+        Para requests mutantes same-origin/relativas, Angular puede leer la cookie
+        <code>XSRF-TOKEN</code> y enviar <code>X-XSRF-TOKEN</code>. Puedes personalizar nombres
+        con <code>withXsrfConfiguration()</code>.
+      </p>
+      <p class="mt-3 rounded-lg bg-white/70 p-3 text-sm text-sky-950">
+        <strong>Límite:</strong> el backend debe emitir el token y validarlo. Angular solo implementa
+        la mitad cliente del protocolo.
+      </p>
+    </article>
+    <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+      <h3 class="font-semibold text-violet-950">Router guards</h3>
+      <p class="mt-2 text-sm leading-6 text-violet-950">
+        Guards mejoran navegación: evitan mostrar pantallas inútiles y redirigen usuarios según
+        estado conocido. Angular documenta explícitamente que nunca son la única fuente de access control.
+      </p>
+      <p class="mt-3 rounded-lg bg-white/70 p-3 text-sm text-violet-950">
+        <strong>Regla:</strong> cada endpoint debe validar autenticación, rol y ownership del recurso.
+      </p>
+    </article>
+  </div>
+
+  <aside class="mt-5 rounded-xl border-l-4 border-slate-700 bg-slate-50 p-4 text-sm text-slate-800">
+    <h3 class="font-semibold text-slate-950">Hardening recomendado por Angular</h3>
+    <p class="mt-2 leading-6">
+      Mantén Angular actualizado, usa compilación AOT en producción y refuerza los sinks del DOM
+      mediante una política CSP estricta y enforcement de Trusted Types. Estas capas cubren caminos
+      que pueden escapar a los bindings habituales.
+    </p>
+  </aside>
+</section>

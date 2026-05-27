@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, interval, map } from 'rxjs';
 
 @Component({
   selector: 'app-to-signal-sync-demo',
   templateUrl: './to-signal-sync-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToSignalSyncDemoComponent {
   private readonly syncSource$ = new BehaviorSubject(100);

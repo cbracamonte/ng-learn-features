@@ -1,0 +1,83 @@
+<section id="carga" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700">02 · Carga y entrega</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Enviar lo necesario, en el momento correcto</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    Reducir el JavaScript inicial solo tiene valor si el contenido prioritario llega antes y el
+    usuario no paga luego una espera sorpresiva. La estrategia se decide por criticidad visual y de interacción.
+  </p>
+
+  <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200">
+    <table class="min-w-full text-left text-sm">
+      <caption class="sr-only">Herramientas Angular de carga y sus tradeoffs</caption>
+      <thead class="bg-slate-50 text-slate-900">
+        <tr>
+          <th class="px-4 py-3 font-semibold">Problema</th>
+          <th class="px-4 py-3 font-semibold">Palanca Angular / web</th>
+          <th class="px-4 py-3 font-semibold">Cuidado Senior</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 text-slate-700">
+        <tr>
+          <td class="px-4 py-3">Features no usadas en entrada</td>
+          <td class="px-4 py-3"><code>loadComponent</code> o rutas lazy</td>
+          <td class="px-4 py-3">No precargues todo otra vez sin evidencia de navegación probable.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Widgets secundarios pesados</td>
+          <td class="px-4 py-3"><code>&#64;defer</code> con trigger y estados</td>
+          <td class="px-4 py-3">No difieras contenido LCP visible si introduces CLS o espera crítica.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Imagen hero o galería pesada</td>
+          <td class="px-4 py-3"><code>NgOptimizedImage</code>, <code>priority</code>, dimensiones</td>
+          <td class="px-4 py-3"><code>priority</code> es para candidatos LCP, no para toda la galería.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">SSR que vuelve a recrear DOM</td>
+          <td class="px-4 py-3">Hydration; incremental hydration cuando aplica</td>
+          <td class="px-4 py-3">Requiere SSR/hidratación correctamente configurados y HTML consistente.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+      <h3 class="font-semibold text-emerald-950"><code>&#64;defer</code>: diferir con intención</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-emerald-950">
+        <li>Angular divide dependencias standalone del bloque en carga dinámica.</li>
+        <li>Triggers útiles: <code>idle</code>, <code>viewport</code>, <code>interaction</code>, <code>hover</code>, <code>timer</code> o condición <code>when</code>.</li>
+        <li>Modela UX con <code>&#64;placeholder</code>, <code>&#64;loading</code> y <code>&#64;error</code>; reserva espacio para proteger CLS.</li>
+        <li><code>prefetch</code> puede bajar latencia futura, a cambio de consumir red antes de uso real.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">Imágenes, LCP y estabilidad</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-sky-950">
+        <li><code>NgOptimizedImage</code> lazy-loads imágenes no prioritarias y puede generar <code>srcset</code>.</li>
+        <li>Marca la imagen candidata a LCP con <code>priority</code>; Angular aplica prioridad alta y advierte en desarrollo si falta.</li>
+        <li>Declara <code>width</code>/<code>height</code> para reservar relación de aspecto y prevenir layout shifts.</li>
+        <li>CDN, tamaños responsivos, compresión y preconnect importan tanto como la directiva.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="mt-5 grid gap-4 md:grid-cols-2">
+    <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+      <h3 class="font-semibold text-violet-950">SSR e hidratación</h3>
+      <p class="mt-2 text-sm leading-6 text-violet-950">
+        Con SSR, hidratación reutiliza el DOM generado en servidor en lugar de destruirlo y
+        renderizarlo otra vez en cliente. Angular documenta beneficios medibles sobre LCP y CLS.
+        La hidratación incremental puede conservar zonas diferidas sin hidratarlas hasta requerirse.
+      </p>
+    </article>
+    <article class="rounded-xl border border-slate-200 p-4">
+      <h3 class="font-semibold text-slate-950">Fuera del framework</h3>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700">
+        <li>Reduce fuentes, CSS crítico bloqueante y scripts de analytics/chat sin prioridad.</li>
+        <li>Evita waterfalls API secuenciales si los datos pueden solicitarse en paralelo.</li>
+        <li>Define políticas HTTP/CDN de caché e invalídalas con versionado correcto.</li>
+      </ul>
+    </article>
+  </div>
+</section>

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
 type Todo = {
@@ -11,7 +11,8 @@ type Todo = {
 @Component({
   selector: 'app-rxjs-todo-demo',
   imports: [AsyncPipe],
-  templateUrl: './rxjs-todo-demo.component.html'
+  templateUrl: './rxjs-todo-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RxjsTodoDemoComponent {
   private readonly todosSubject = new BehaviorSubject<Todo[]>([]);

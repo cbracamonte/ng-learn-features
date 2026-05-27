@@ -1,0 +1,95 @@
+<section id="entrevista" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-violet-700">04 · Entrevista y auditoría</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">La respuesta Senior: métrica → causa → decisión → prueba</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    No respondas “uso lazy loading y OnPush”. Explica el síntoma medido, el cuello de botella
+    encontrado, la intervención específica, su tradeoff y cómo impides que el problema vuelva.
+  </p>
+
+  <div class="mt-5 rounded-xl border border-violet-200 bg-violet-50 p-4">
+    <h3 class="font-semibold text-violet-950">Respuesta modelo en 45 segundos</h3>
+    <p class="mt-2 text-sm leading-6 text-violet-950">
+      “Primero separo carga, interacción y estabilidad visual usando LCP, INP y CLS de usuarios
+      reales; reproduzco el journey en laboratorio para perfilar. Si LCP viene de la imagen hero,
+      aplico tamaños, formato/CDN y <code>NgOptimizedImage</code> con <code>priority</code>. Si INP
+      viene de renders o cálculos, inspecciono change detection y long tasks, y evalúo OnPush,
+      signals, zoneless o mover trabajo. Valido antes/después y dejo budgets y observabilidad.”
+    </p>
+  </div>
+
+  <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200">
+    <table class="min-w-full text-left text-sm">
+      <caption class="sr-only">Matriz de diagnóstico de performance para entrevista</caption>
+      <thead class="bg-slate-50 text-slate-900">
+        <tr>
+          <th class="px-4 py-3 font-semibold">Síntoma</th>
+          <th class="px-4 py-3 font-semibold">Busca evidencia</th>
+          <th class="px-4 py-3 font-semibold">Opciones</th>
+          <th class="px-4 py-3 font-semibold">Tradeoff</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 text-slate-700">
+        <tr>
+          <td class="px-4 py-3">LCP deficiente</td>
+          <td class="px-4 py-3">Elemento LCP, waterfall, TTFB, bytes</td>
+          <td class="px-4 py-3">Imagen prioritaria, lazy route, SSR/cache</td>
+          <td class="px-4 py-3">Complejidad de entrega o servidor</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">INP deficiente</td>
+          <td class="px-4 py-3">Long tasks y ciclos Angular</td>
+          <td class="px-4 py-3">OnPush/signals, dividir cálculo, reducir listeners</td>
+          <td class="px-4 py-3">Modelo de estado y testing más disciplinados</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">CLS deficiente</td>
+          <td class="px-4 py-3">Layout shifts e inserts tardíos</td>
+          <td class="px-4 py-3">Dimensiones, placeholders, fuentes/ads reservados</td>
+          <td class="px-4 py-3">Diseño debe reservar espacio real</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Memoria aumenta</td>
+          <td class="px-4 py-3">Heap snapshots y vistas destruidas</td>
+          <td class="px-4 py-3">Teardown, caché acotada, cancelar flujos</td>
+          <td class="px-4 py-3">Política explícita de reutilización</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+      <h3 class="font-semibold text-emerald-950">Checklist de auditoría</h3>
+      <ul class="mt-3 space-y-2 text-sm leading-6 text-emerald-950">
+        <li>□ Medir CWV reales por dispositivo y journey crítico.</li>
+        <li>□ Revisar bundle inicial, chunks lazy y terceros.</li>
+        <li>□ Auditar LCP image, dimensiones, fuentes y CLS.</li>
+        <li>□ Perfilar change detection, long tasks y layout thrashing.</li>
+        <li>□ Revisar SSR/hidratación, red, caché, errores y memoria.</li>
+        <li>□ Registrar budget y alerta de regresión posterior al cambio.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Antipatrones que debes denunciar</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-rose-950">
+        <li>Aplicar <code>OnPush</code> o zoneless sin un perfil que justifique el cambio.</li>
+        <li>Diferir el hero/LCP y provocar salto visual para “bajar el bundle”.</li>
+        <li>Marcar todas las imágenes como prioritarias o precargar todo.</li>
+        <li>Usar identidad inestable en listas y recrear nodos en cada actualización.</li>
+        <li>Convertir caching en datos obsoletos o una fuga de memoria permanente.</li>
+      </ul>
+    </article>
+  </div>
+
+  <footer class="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <h3 class="font-semibold text-slate-950">Fuentes oficiales para profundizar</h3>
+    <ul class="mt-3 grid gap-2 text-sm text-cyan-800 md:grid-cols-2">
+      <li><a class="underline hover:text-cyan-950" href="https://angular.dev/best-practices/performance" target="_blank" rel="noopener noreferrer">Angular · Performance overview</a></li>
+      <li><a class="underline hover:text-cyan-950" href="https://angular.dev/best-practices/runtime-performance" target="_blank" rel="noopener noreferrer">Angular · Runtime performance</a></li>
+      <li><a class="underline hover:text-cyan-950" href="https://angular.dev/guide/templates/defer" target="_blank" rel="noopener noreferrer">Angular · Deferred loading</a></li>
+      <li><a class="underline hover:text-cyan-950" href="https://angular.dev/guide/image-optimization" target="_blank" rel="noopener noreferrer">Angular · NgOptimizedImage</a></li>
+      <li><a class="underline hover:text-cyan-950" href="https://angular.dev/guide/hydration" target="_blank" rel="noopener noreferrer">Angular · Hydration</a></li>
+      <li><a class="underline hover:text-cyan-950" href="https://web.dev/articles/vitals" target="_blank" rel="noopener noreferrer">web.dev · Core Web Vitals</a></li>
+    </ul>
+  </footer>
+</section>

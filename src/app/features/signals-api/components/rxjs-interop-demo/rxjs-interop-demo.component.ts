@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, delay, distinctUntilChanged, map, of, shareReplay, switchMap } from 'rxjs';
 
@@ -20,6 +20,7 @@ const PRODUCTS: Product[] = [
 @Component({
   selector: 'app-rxjs-interop-demo',
   templateUrl: './rxjs-interop-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RxjsInteropDemoComponent {
   readonly query = signal('');

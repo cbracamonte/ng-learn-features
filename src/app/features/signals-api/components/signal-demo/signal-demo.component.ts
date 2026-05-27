@@ -1,8 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-signal-demo',
-  templateUrl: './signal-demo.component.html'
+  templateUrl: './signal-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignalDemoComponent {
   readonly count = input.required<number>();

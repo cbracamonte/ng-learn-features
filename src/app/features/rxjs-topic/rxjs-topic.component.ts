@@ -6,6 +6,7 @@ import { RxjsNotesComponent } from './components/rxjs-notes/rxjs-notes.component
 import { RxjsShareReplayDemoComponent } from './components/rxjs-share-replay-demo/rxjs-share-replay-demo.component';
 import { RxjsOperatorMappingDemoComponent } from './components/rxjs-operator-mapping-demo/rxjs-operator-mapping-demo.component';
 import { RxjsPipeOperatorsDemoComponent } from './components/rxjs-pipe-operators-demo/rxjs-pipe-operators-demo.component';
+import { RxjsFoundationsNoteComponent } from './components/rxjs-foundations-note/rxjs-foundations-note.component';
 
 @Component({
   selector: 'app-rxjs-topic',
@@ -17,6 +18,7 @@ import { RxjsPipeOperatorsDemoComponent } from './components/rxjs-pipe-operators
     RxjsJoinOperatorsDemoComponent,
     RxjsShareReplayDemoComponent,
     RxjsNotesComponent,
+    RxjsFoundationsNoteComponent,
   ],
   templateUrl: './rxjs-topic.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

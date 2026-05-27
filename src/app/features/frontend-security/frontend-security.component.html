@@ -1,0 +1,134 @@
+<section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+  <a
+    routerLink="/"
+    class="mb-6 inline-flex rounded-md px-1 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 sm:mb-8"
+  >
+    ← Volver al home
+  </a>
+
+  <header class="rounded-3xl border border-slate-800 bg-slate-950 p-5 text-white shadow-sm sm:p-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-red-300">
+      Angular Senior · Application Security
+    </p>
+    <h1 class="mt-3 text-3xl font-semibold tracking-tight">Seguridad Frontend + protecciones de Angular</h1>
+    <p class="mt-4 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
+      Un frontend seguro no “confía en Angular” ciegamente: entiende el modelo de amenaza,
+      aprovecha sanitización y XSRF correctamente, limita las superficies del navegador y exige al
+      backend la autorización, sesión y validación que el cliente NUNCA puede garantizar.
+    </p>
+
+    <div class="mt-6 rounded-xl border border-red-400/30 bg-red-950/40 p-4 text-sm text-red-100">
+      <p class="font-semibold text-red-200">Alcance profesional</p>
+      <p class="mt-2 leading-6">
+        Esta guía cubre los riesgos y controles críticos del frontend Angular. “Todos los casos”
+        absolutos no existen: cada producto requiere threat modeling adicional según datos,
+        integraciones, regulaciones, SSR, autenticación y backend.
+      </p>
+    </div>
+
+    <nav class="mt-7" aria-label="Ruta de estudio de seguridad frontend y Angular">
+      <ol class="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-5">
+        <li>
+          <a
+            routerLink="."
+            fragment="catalogo"
+            class="block rounded-xl border border-red-500/60 bg-red-500/10 p-3 transition hover:border-red-300 hover:bg-red-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+          >
+            <strong class="mr-1 text-red-300">00</strong> Mapa de riesgos
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="fundamentos"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-red-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+          >
+            <strong class="mr-1 text-red-300">01</strong> Fundamentos
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="angular"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-red-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+          >
+            <strong class="mr-1 text-red-300">02</strong> Angular
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="arquitectura"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-red-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+          >
+            <strong class="mr-1 text-red-300">03</strong> Plataforma
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="entrevista"
+            class="block rounded-xl border border-red-500/60 bg-red-500/10 p-3 transition hover:border-red-300 hover:bg-red-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+          >
+            <strong class="mr-1 text-red-300">04</strong> Checklist Senior
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </header>
+
+  <main class="mt-8 flex flex-col gap-6">
+    <section id="catalogo" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-red-700">Mapa completo de estudio</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950">Superficies que debes saber auditar</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Seguridad frontend Senior significa reconocer qué riesgo existe, dónde se mitiga y quién
+        tiene la responsabilidad final: Angular, navegador, infraestructura o backend.
+      </p>
+
+      <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+          <h3 class="font-semibold text-rose-950">Inyección y DOM</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+            <li>XSS reflejado, almacenado y DOM-based</li>
+            <li>HTML, URL y Resource URL contexts</li>
+            <li>DOM directo y librerías de terceros</li>
+            <li>CSP y Trusted Types</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+          <h3 class="font-semibold text-amber-950">Identidad y API</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-950">
+            <li>Sesiones, cookies y tokens</li>
+            <li>CSRF / XSRF</li>
+            <li>CORS y autorización</li>
+            <li>Guards frente a enforcement servidor</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+          <h3 class="font-semibold text-sky-950">Navegador y entrega</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-sky-950">
+            <li>Clickjacking y tabnabbing</li>
+            <li>Storage, secretos y PII</li>
+            <li>Redirects, uploads y downloads</li>
+            <li>SSR, hidratación y logs</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+          <h3 class="font-semibold text-violet-950">Supply chain y operación</h3>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-violet-950">
+            <li>Dependencias y scripts third-party</li>
+            <li>SRI, CSP y headers</li>
+            <li>Build/release y source maps</li>
+            <li>Pruebas, revisión y monitoreo</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <app-security-foundations class="block" />
+    <app-angular-security-defenses class="block" />
+    <app-frontend-security-architecture class="block" />
+    <app-security-interview-checklist class="block" />
+  </main>
+</section>

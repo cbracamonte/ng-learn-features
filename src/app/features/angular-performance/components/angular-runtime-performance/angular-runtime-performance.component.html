@@ -1,0 +1,66 @@
+<section id="runtime" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-amber-700">03 · Runtime, render y memoria</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Que la UI cambie solo por trabajo necesario</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    El costo no está solamente en “Angular”: está en cuántas veces se dispara una actualización,
+    cuánto árbol se revisa y qué cálculos, DOM y efectos realiza cada ciclo.
+  </p>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-3">
+    <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+      <h3 class="font-semibold text-amber-950">Reducir revisiones</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-amber-950">
+        <li><code>OnPush</code> permite omitir subárboles sin nuevos inputs/eventos relevantes.</li>
+        <li>Signals declaran dependencias consumidas por la vista con granularidad clara.</li>
+        <li>Zoneless elimina el disparador global de Zone.js, pero exige notificaciones reactivas correctas.</li>
+        <li>En apps con Zone.js, eventos/timers de terceros fuera del negocio pueden causar <em>zone pollution</em>.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-orange-200 bg-orange-50 p-4">
+      <h3 class="font-semibold text-orange-950">Reducir trabajo por ciclo</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-orange-950">
+        <li>No ejecutes filtros, ordenamientos o serializaciones costosas directamente en templates.</li>
+        <li>Usa <code>computed</code> para derivaciones reactivas memoizadas y evita efectos como propagación de estado.</li>
+        <li>En <code>&#64;for</code>, identifica entidades con una clave estable; recrear DOM por mala identidad cuesta UX.</li>
+        <li>Virtualiza o pagina listas extensas cuando pintar todo no aporta valor visible.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Reducir deuda silenciosa</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-rose-950">
+        <li>Libera subscriptions imperativas con <code>takeUntilDestroyed</code> o usa consumo declarativo apropiado.</li>
+        <li>Desregistra listeners, observers, intervals y referencias a nodos al destruir vistas.</li>
+        <li>Define lifetime e invalidación de caches; memoria infinita NO es performance.</li>
+        <li>Cancela requests obsoletos cuando el flujo del usuario ya no necesita la respuesta.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-slate-200 p-4">
+    <h3 class="font-semibold text-slate-950">Flujo de diagnóstico: del síntoma a la corrección</h3>
+    <ol class="mt-4 grid gap-3 text-sm text-slate-700 md:grid-cols-2 lg:grid-cols-4">
+      <li class="rounded-lg bg-slate-50 p-3">
+        <strong class="block text-cyan-800">1. Reproduce</strong>
+        Dispositivo/red representativos y journey concreto: carga, clic o escritura.
+      </li>
+      <li class="rounded-lg bg-slate-50 p-3">
+        <strong class="block text-cyan-800">2. Perfila</strong>
+        Performance panel, Angular DevTools, waterfall, long tasks, heap según síntoma.
+      </li>
+      <li class="rounded-lg bg-slate-50 p-3">
+        <strong class="block text-cyan-800">3. Aísla</strong>
+        ¿Bytes? ¿LCP image? ¿Change detection? ¿Cálculo? ¿Layout? ¿Leak? ¿Tercero?
+      </li>
+      <li class="rounded-lg bg-slate-50 p-3">
+        <strong class="block text-cyan-800">4. Comprueba</strong>
+        Compara métricas y protege budget/regresión en CI y telemetría real.
+      </li>
+    </ol>
+  </div>
+
+  <aside class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
+    <strong>Nota Expert:</strong> <code>OnPush</code> no corrige un cálculo de 150 ms, y zoneless
+    no reduce una imagen de 4 MB. Las optimizaciones solo sirven cuando atacan la causa observada.
+    En una entrevista Senior, explica primero el perfil y después la API.
+  </aside>
+</section>

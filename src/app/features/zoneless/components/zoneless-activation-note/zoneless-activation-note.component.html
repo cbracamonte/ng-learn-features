@@ -1,36 +1,122 @@
-<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-  <h2 class="font-semibold text-slate-900">Zoneless: guía visual de activación y migración</h2>
+<section id="migracion" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Parte 4 · Aplicación real</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Activación y migración consciente</h2>
 
-  <div class="mt-3 space-y-3 text-xs">
-    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-      <p class="font-semibold text-emerald-800">✅ Activación</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-emerald-900">
-        <li>En Angular v21+, zoneless ya es default.</li>
-        <li>En v20, usá <code>provideZonelessChangeDetection()</code>.</li>
-        <li>Quitá <code>zone.js</code> y <code>zone.js/testing</code> de build/test.</li>
-      </ul>
-    </div>
-
-    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
-      <p class="font-semibold text-violet-800">🧱 Migración técnica</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
-        <li>Mové estado de UI a <code>signal</code>/<code>computed</code>/<code>effect</code>.</li>
-        <li>Para código legacy async, usá <code>ChangeDetectorRef.markForCheck()</code>.</li>
-        <li>Mantené límites de render predecibles (idealmente OnPush-compatible).</li>
-      </ul>
-    </div>
-
-    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
-      <p class="font-semibold text-amber-800">⚠️ Riesgos comunes</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
-        <li>SDKs/librerías viejas que asumían Zone.js.</li>
-        <li>Callbacks externos que no notifican CD.</li>
-        <li>Mutaciones silenciosas fuera del flujo reactivo.</li>
-      </ul>
-    </div>
-
-    <p class="rounded-lg border border-sky-200 bg-sky-50 p-3 text-sky-900">
-      Regla práctica: <strong>si el cambio no pasa por signal, asumí que tenés que notificar CD explícitamente</strong>.
+  <div class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
+    <h3 class="font-semibold">Versión de este laboratorio: Angular 21</h3>
+    <p class="mt-2 leading-6">
+      Desde Angular v21, zoneless es el comportamiento predeterminado. Este proyecto conserva
+      <code>provideZonelessChangeDetection()</code> en <code>app.config.ts</code> para que la
+      intención didáctica sea explícita; en v21 no es necesario para habilitarlo.
     </p>
   </div>
+
+  <div class="mt-5">
+    <h3 class="font-semibold text-slate-900">Checklist de activación por versión</h3>
+    <div class="mt-3 overflow-x-auto">
+      <table class="w-full min-w-[32rem] border-separate border-spacing-0 text-left text-sm">
+        <thead>
+          <tr class="text-slate-600">
+            <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Contexto</th>
+            <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Acción</th>
+            <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Motivo</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-700">
+          <tr>
+            <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-900">Angular v21+</th>
+            <td class="border-b border-slate-100 px-3 py-3">Verificar que no se configure <code>provideZoneChangeDetection()</code>.</td>
+            <td class="border-b border-slate-100 px-3 py-3">Zoneless ya viene por defecto.</td>
+          </tr>
+          <tr>
+            <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-900">Angular v20</th>
+            <td class="border-b border-slate-100 px-3 py-3">Agregar <code>provideZonelessChangeDetection()</code>.</td>
+            <td class="border-b border-slate-100 px-3 py-3">Activa la calendarización sin Zone.js.</td>
+          </tr>
+          <tr>
+            <th scope="row" class="px-3 py-3 font-medium text-slate-900">Build y tests</th>
+            <td class="px-3 py-3">Retirar <code>zone.js</code> y <code>zone.js/testing</code> de polyfills/dependencias.</td>
+            <td class="px-3 py-3">Evita costo y falsas garantías de compatibilidad.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">Qué SÍ notifica a Angular</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-sky-950">
+        <li>Actualizar un <code>signal</code> leído desde un template.</li>
+        <li>Un listener enlazado en template/host, por ejemplo <code>(click)</code>.</li>
+        <li><code>AsyncPipe</code>, que internamente marca la vista cuando recibe valores.</li>
+        <li><code>ChangeDetectorRef.markForCheck()</code> para integrar código imperativo.</li>
+        <li><code>ComponentRef.setInput()</code> al establecer entradas dinámicas.</li>
+      </ul>
+    </article>
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Qué NO basta por sí solo</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+        <li>Asignar una propiedad común dentro de un <code>setTimeout</code>.</li>
+        <li>Recibir un callback de SDK y mutar el modelo silenciosamente.</li>
+        <li>Actualizar estado de forms reactivos y asumir que la vista será calendarizada.</li>
+        <li>Esperar emisiones de <code>NgZone.onStable</code> o <code>onMicrotaskEmpty</code>.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4">
+    <h3 class="font-semibold text-amber-950">Ruta de migración segura</h3>
+    <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm text-amber-950">
+      <li>Localiza estado de UI mutado en timers, suscripciones, callbacks y SDKs.</li>
+      <li>Modela estado nuevo con <code>signal</code> y derivados con <code>computed</code>.</li>
+      <li>Cuando no puedas migrar todavía, llama <code>markForCheck()</code> después de la mutación.</li>
+      <li>Adopta componentes compatibles con <code>OnPush</code> para revelar dependencias implícitas.</li>
+      <li>Verifica integraciones externas, forms, SSR y tests antes de retirar Zone.js.</li>
+    </ol>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-slate-200 p-4">
+    <h3 class="font-semibold text-slate-950">Fronteras avanzadas que se auditan en proyectos reales</h3>
+    <dl class="mt-3 divide-y divide-slate-100 text-sm">
+      <div class="grid gap-1 py-3 md:grid-cols-[11rem_1fr] md:gap-4">
+        <dt class="font-semibold text-slate-900">SSR / estabilidad</dt>
+        <dd class="leading-6 text-slate-700">
+          Registra trabajo asíncrono que debe esperar la serialización mediante
+          <code>PendingTasks</code> o <code>pendingUntilEvent()</code>.
+        </dd>
+      </div>
+      <div class="grid gap-1 py-3 md:grid-cols-[11rem_1fr] md:gap-4">
+        <dt class="font-semibold text-slate-900">Reactive forms</dt>
+        <dd class="leading-6 text-slate-700">
+          <code>setValue()</code> y <code>patchValue()</code> actualizan el modelo, pero no
+          calendarizan por sí mismos el render: conecta observables a signals o marca la vista.
+        </dd>
+      </div>
+      <div class="grid gap-1 py-3 md:grid-cols-[11rem_1fr] md:gap-4">
+        <dt class="font-semibold text-slate-900">Hooks de NgZone</dt>
+        <dd class="leading-6 text-slate-700">
+          No bases lógica en <code>onStable</code>, <code>onUnstable</code> u
+          <code>onMicrotaskEmpty</code>; en zoneless no notifican el ciclo que esperabas. Para
+          render usa <code>afterNextRender()</code> / <code>afterEveryRender()</code>.
+        </dd>
+      </div>
+      <div class="grid gap-1 py-3 md:grid-cols-[11rem_1fr] md:gap-4">
+        <dt class="font-semibold text-slate-900"><code>run()</code> / <code>runOutsideAngular()</code></dt>
+        <dd class="leading-6 text-slate-700">
+          No los elimines mecánicamente en librerías: siguen siendo compatibles y retirarlos puede
+          perjudicar aplicaciones consumidoras que todavía usan Zone.js.
+        </dd>
+      </div>
+    </dl>
+  </div>
+
+  <aside class="mt-5 rounded-xl border-l-4 border-emerald-600 bg-emerald-50 p-4 text-sm text-emerald-950">
+    <h3 class="font-semibold">Regla senior · Migrar no es buscar y reemplazar</h3>
+    <p class="mt-2 leading-6">
+      Cambiar la configuración es lo fácil. La arquitectura correcta es hacer explícitas las
+      fronteras donde el estado de UI cambia. Si no puedes identificar quién notifica el render,
+      todavía no entiendes la compatibilidad zoneless de ese flujo.
+    </p>
+  </aside>
 </section>

@@ -1,65 +1,148 @@
-<section class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-  <h2 class="font-semibold text-slate-900">Notas senior RxJS (visual + avanzado)</h2>
+<section id="entrevista" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-cyan-700">Parte 6 · Cierre de estudio</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Checklist Senior para entrevistas de RxJS en Angular</h2>
+  <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+    Un Senior no responde “uso <code>switchMap</code> porque es lo habitual”. Explica el contrato
+    temporal, el lifetime, el estado visible y las consecuencias de compartir o cancelar trabajo.
+  </p>
 
-  <div class="mt-3 grid gap-3 text-xs lg:grid-cols-2">
-    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-      <p class="font-semibold text-emerald-800">✅ Estrategias de flattening: lectura senior</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-emerald-900">
-        <li><strong>switchMap</strong>: cambia de contexto. Cancela el inner anterior porque el último intent vale más que el previo.</li>
-        <li><strong>concatMap</strong>: preserva orden y no pierde eventos. Tradeoff: aumenta latencia si la cola crece.</li>
-        <li><strong>mergeMap</strong>: maximiza rendimiento(throughput) con trabajo paralelo. Tradeoff: podés perder orden y saturar backend.</li>
-        <li><strong>exhaustMap</strong>: protege una sección crítica mientras hay un inner activo. Ideal submit/login/pagos.</li>
-      </ul>
-    </div>
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+      <h3 class="font-semibold text-emerald-950">Respuesta corta que debes dominar</h3>
+      <p class="mt-3 text-sm leading-6 text-emerald-950">
+        “Uso RxJS cuando el problema es una secuencia temporal o asíncrona: eventos, requests que
+        pueden cancelarse, retries o combinación. Primero elijo la semántica de concurrencia;
+        luego protejo lifetime con <code>AsyncPipe</code> o <code>takeUntilDestroyed()</code>, y
+        solo aplico sharing si tengo una política explícita de cache e invalidación.”
+      </p>
+    </article>
 
-    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
-      <p class="font-semibold text-sky-800">🧪 Definiciones detalladas de pipe operators</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-sky-900">
-        <li><strong>map</strong>: proyección pura. Cambia forma del dato, no el tiempo ni la cantidad de emisiones.</li>
-        <li><strong>filter</strong>: guard clause reactiva. Reduce ruido antes de entrar a operadores caros.</li>
-        <li><strong>debounceTime</strong>: compacta bursts temporales; excelente para inputs humanos, mala idea para eventos que no deben perderse.</li>
-        <li><strong>distinctUntilChanged</strong>: compara contra la emisión inmediatamente anterior. Con objetos, sin comparator custom, compara referencia.</li>
-        <li><strong>tap</strong>: observabilidad y side effects no críticos. Si tu lógica depende de <code>tap</code>, probablemente está mal ubicada.</li>
-        <li><strong>startWith</strong>: define estado inicial del stream para UI o composición temprana.</li>
-        <li><strong>catchError</strong>: intercepta error en el tramo actual. OJO: dónde lo pongas cambia qué parte del pipeline se recupera.</li>
-        <li><strong>finalize</strong>: cleanup transversal; corre en complete, error o unsubscribe.</li>
-      </ul>
-    </div>
+    <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+      <h3 class="font-semibold text-sky-950">Mapa de selección rápida</h3>
+      <dl class="mt-3 space-y-2 text-sm text-sky-950">
+        <div class="flex gap-2"><dt class="font-semibold"><code>map</code>:</dt><dd>cambiar forma del valor.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>filter</code>:</dt><dd>eliminar emisiones irrelevantes.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>switchMap</code>:</dt><dd>último contexto gana.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>concatMap</code>:</dt><dd>preservar orden.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>mergeMap</code>:</dt><dd>paralelizar con criterio.</dd></div>
+        <div class="flex gap-2"><dt class="font-semibold"><code>exhaustMap</code>:</dt><dd>bloquear repetición activa.</dd></div>
+      </dl>
+    </article>
+  </div>
 
-    <div class="rounded-lg border border-violet-200 bg-violet-50 p-3">
-      <p class="font-semibold text-violet-800">🔗 Composición y caching</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-violet-900">
-        <li><strong>forkJoin</strong>: sincronización final. Útil cuando TODAS las fuentes deben completar para renderizar algo coherente.</li>
-        <li><strong>combineLatest</strong>: cálculo reactivo continuo. Pensalo como una planilla que recalcula con el último valor de cada columna.</li>
-        <li><strong>withLatestFrom</strong>: evento principal + contexto. El stream secundario no “dispara”; solo aporta snapshot.</li>
-        <li><strong>zip</strong>: lockstep estricto. Une emisión 1 con 1, 2 con 2; útil cuando necesitás pairing determinista.</li>
-        <li><strong>shareReplay</strong>: multicast + replay. Comparte una ejecución y entrega el último valor a suscriptores tardíos.</li>
-        <li><strong>shareReplay con refCount</strong>: libera source cuando no quedan suscriptores. Sin estrategia, podés dejar procesos vivos o cache eterna.</li>
-      </ul>
-    </div>
+  <div class="mt-5 overflow-x-auto">
+    <table class="w-full min-w-[44rem] border-separate border-spacing-0 text-left text-sm">
+      <caption class="mb-3 text-left font-semibold text-slate-950">Preguntas frecuentes y señales de una respuesta madura</caption>
+      <thead>
+        <tr class="text-slate-600">
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Pregunta</th>
+          <th scope="col" class="border-b border-slate-200 px-3 py-2 font-semibold">Criterio Senior</th>
+        </tr>
+      </thead>
+      <tbody class="align-top text-slate-700">
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Por qué evitar nested subscribes?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">Fragmentan error, cancelación y composición; los higher-order operators hacen explícita la política.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Cold o hot?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">Cold puede ejecutar por suscripción; hot/multicast comparte ejecución. Esa diferencia decide requests y cache.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Cómo evitas memory leaks en Angular?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">Prefiero <code>AsyncPipe</code> en templates; en suscripción imperativa utilizo <code>takeUntilDestroyed()</code>.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="border-b border-slate-100 px-3 py-3 font-medium text-slate-950">¿Cuándo usar shareReplay?</th>
+          <td class="border-b border-slate-100 px-3 py-3 leading-6">Cuando varios consumidores deben compartir trabajo/último valor, definiendo <code>bufferSize</code>, <code>refCount</code> e invalidación.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="px-3 py-3 font-medium text-slate-950">¿RxJS o Signals?</th>
+          <td class="px-3 py-3 leading-6">RxJS para flujos temporales; Signals para estado actual de UI. Se integran en fronteras, no se reemplazan por dogma.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
-      <p class="font-semibold text-amber-800">⚠️ Anti patrones RxJS</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
-        <li><strong>Nested subscribes</strong>: fragmenta flujo, errores y cleanup. Componé con operadores, no con callbacks encadenados.</li>
-        <li><strong>Exponer Subjects públicamente</strong>: rompe encapsulación. Exponé <code>asObservable()</code>, no el write API.</li>
-        <li><strong>shareReplay(1) por reflejo</strong>: sin pensar lifecycle/cache invalidation es una bomba de memoria o datos stale.</li>
-        <li><strong>mergeMap para acciones no idempotentes</strong>: podés disparar writes simultáneos y dejar estado inconsistente.</li>
-        <li><strong>distinctUntilChanged con objetos mutables</strong>: si mutás la misma referencia, el operador no te salva conceptualmente.</li>
-        <li><strong>tap para lógica de negocio</strong>: convierte el pipeline en una casa con cables por afuera. Difícil de testear y razonar.</li>
-        <li><strong>catchError al final sin criterio</strong>: puede “comerse” errores importantes y dejar la UI silenciosamente rota.</li>
-        <li><strong>No modelar loading/error/empty</strong>: stream bonito, UX mala. La reactividad no reemplaza el diseño de estados.</li>
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+      <h3 class="font-semibold text-amber-950">Operadores de pipeline que debes explicar</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-amber-950">
+        <li><code>debounceTime</code> reduce ráfagas; úsalo para input humano, no para eventos que no deben perderse.</li>
+        <li><code>distinctUntilChanged</code> compara con la emisión anterior; para objetos, la referencia no expresa igualdad de negocio.</li>
+        <li><code>tap</code> sirve para observabilidad o efectos incidentales, no para esconder decisiones de dominio.</li>
+        <li><code>catchError</code> recupera el tramo donde se coloca; su ubicación puede matar o conservar el stream exterior.</li>
+        <li><code>finalize</code> corre en complete, error o unsubscribe; es útil para cleanup transversal.</li>
       </ul>
-    </div>
+    </article>
 
-    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3 lg:col-span-2">
-      <p class="font-semibold text-fuchsia-800">🧠 Reglas senior para decidir</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-fuchsia-900">
-        <li>Primero definí la semántica de concurrencia: <strong>cancelar, encolar, paralelizar o ignorar</strong>. Recién ahí elegís el operador.</li>
-        <li>Distinguí <strong>cold vs hot observables</strong>: si cada suscripción repite trabajo, evaluá multicasting/caching conscientemente.</li>
-        <li>Diseñá streams como contratos de dominio, no solo como trucos de UI.</li>
-        <li>Si una decisión afecta orden, idempotencia, cache o lifetime, ya es una decisión arquitectónica, no “solo RxJS”.</li>
+    <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+      <h3 class="font-semibold text-violet-950">Composición que debes diferenciar</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-violet-950">
+        <li><code>forkJoin</code> espera complete de todas y emite los últimos valores una vez.</li>
+        <li><code>combineLatest</code> recalcula cuando una fuente cambia, tras tener valor inicial de todas.</li>
+        <li><code>withLatestFrom</code> tiene una fuente disparadora y obtiene contexto de las demás.</li>
+        <li><code>zip</code> empareja emisiones por posición: primera con primera, segunda con segunda.</li>
+        <li><code>shareReplay</code> comparte ejecución y replay; no sustituye una estrategia de cache.</li>
       </ul>
-    </div>
+    </article>
+  </div>
+
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Anti-patterns que debes rechazar</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+        <li>Nested subscribes en lugar de composición declarativa.</li>
+        <li>Exponer un <code>Subject</code> públicamente en vez de exponer solo <code>asObservable()</code>.</li>
+        <li>Aplicar <code>shareReplay(1)</code> sin política de lifetime, refresco o invalidación.</li>
+        <li>Usar <code>mergeMap</code> en escrituras no idempotentes sin tolerar concurrencia.</li>
+        <li>No representar loading, error y empty aunque la UI dependa del stream.</li>
+      </ul>
+    </article>
+
+    <article class="rounded-xl border border-fuchsia-200 bg-fuchsia-50 p-4">
+      <h3 class="font-semibold text-fuchsia-950">Reglas Expert</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-fuchsia-950">
+        <li>Unsubscribe no significa automáticamente abortar trabajo externo; la fuente debe soportarlo.</li>
+        <li>La cancelación de una lectura y la consistencia de una escritura son problemas distintos.</li>
+        <li>Subjects son puntos de escritura; mantenlos encapsulados para proteger invariantes.</li>
+        <li>Una política de cache pertenece a la arquitectura de datos, no a un operador aislado.</li>
+        <li>En Angular moderno, <code>takeUntilDestroyed()</code> completa streams ligados al contexto destruido.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <h3 class="font-semibold text-slate-950">Fuentes oficiales para profundizar</h3>
+    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
+      <li>
+        <a class="font-medium text-cyan-700 underline hover:text-cyan-900" href="https://rxjs.dev/guide/higher-order-observables">
+          RxJS: Higher-order Observables
+        </a>
+        — semántica de <code>concatMap</code>, <code>mergeMap</code>, <code>switchMap</code> y <code>exhaustMap</code>.
+      </li>
+      <li>
+        <a class="font-medium text-cyan-700 underline hover:text-cyan-900" href="https://rxjs.dev/api/index/function/forkJoin">
+          RxJS: forkJoin
+        </a>
+        y
+        <a class="font-medium text-cyan-700 underline hover:text-cyan-900" href="https://rxjs.dev/api/index/function/combineLatest">
+          combineLatest
+        </a>
+        — finalización frente a recomputación continua.
+      </li>
+      <li>
+        <a class="font-medium text-cyan-700 underline hover:text-cyan-900" href="https://rxjs.dev/api/index/function/shareReplay">
+          RxJS: shareReplay
+        </a>
+        — replay y comportamiento de <code>refCount</code>.
+      </li>
+      <li>
+        <a class="font-medium text-cyan-700 underline hover:text-cyan-900" href="https://angular.dev/api/core/rxjs-interop/takeUntilDestroyed">
+          Angular: takeUntilDestroyed
+        </a>
+        — lifetime automático ligado al contexto Angular.
+      </li>
+    </ul>
   </div>
 </section>

@@ -1,8 +1,9 @@
-import { Component, computed, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal, untracked } from '@angular/core';
 
 @Component({
   selector: 'app-untracked-demo',
-  templateUrl: './untracked-demo.component.html'
+  templateUrl: './untracked-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UntrackedDemoComponent {
   readonly query = signal('angular');

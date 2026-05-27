@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BehaviorSubject, catchError, of, startWith, switchMap } from 'rxjs';
 
 type TodoDto = {
@@ -18,11 +18,12 @@ type RemoteState = {
   selector: 'app-rxjs-http-demo',
   imports: [AsyncPipe],
   templateUrl: './rxjs-http-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RxjsHttpDemoComponent {
   private readonly userIdSubject = new BehaviorSubject(1);
-  // Si querés NO mantener el último dato en pantalla durante loading, podés emitir un estado vacío en cada request.
-  // Ejemplo (descomentá dentro de switchMap):
+  // Si quieres NO mantener el último dato en pantalla durante loading, puedes emitir un estado vacío en cada request.
+  // Ejemplo (descomenta dentro de switchMap):
   //
   // return from(
   //   fetch(`https://jsonplaceholder.typicode.com/todos?_limit=6&userId=${userId}`)

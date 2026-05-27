@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 
 type Todo = {
   id: number;
@@ -8,7 +8,8 @@ type Todo = {
 
 @Component({
   selector: 'app-signal-todo-demo',
-  templateUrl: './signal-todo-demo.component.html'
+  templateUrl: './signal-todo-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignalTodoDemoComponent {
   private nextId = 1;

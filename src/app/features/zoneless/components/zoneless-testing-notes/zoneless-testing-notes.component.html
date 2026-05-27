@@ -1,37 +1,58 @@
-<section class="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-slate-700">
-  <h2 class="font-semibold text-slate-900">Unit Testing en Zoneless (bien claro)</h2>
+<section id="testing" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+  <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700">Parte 5 · Verificación</p>
+  <h2 class="mt-1 text-xl font-semibold text-slate-950">Testing: demostrar notificaciones reales</h2>
 
-  <div class="mt-3 space-y-3 text-xs">
-    <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-      <p class="font-semibold text-emerald-800">✅ Qué cambia de verdad</p>
-      <p class="mt-1 text-emerald-900">
-        Si removés <code>zone.js</code>/<code>zone.js/testing</code>, los helpers de test basados en Zone dejan de aplicar.
-      </p>
-    </div>
+  <p class="mt-4 text-sm leading-6 text-slate-700">
+    Un test zoneless valioso no fuerza el DOM para ocultar un problema: prueba que el componente
+    notifica a Angular de la misma forma en que lo hará en producción.
+  </p>
 
-    <div class="rounded-lg border border-amber-200 bg-amber-50 p-3">
-      <p class="font-semibold text-amber-800">⚠️ fakeAsync / tick</p>
-      <ul class="mt-1 list-disc space-y-1 pl-5 text-amber-900">
-        <li><strong>fakeAsync</strong> requiere Zone.js.</li>
-        <li>Con suite realmente zoneless (sin <code>zone.js/testing</code>), no lo uses.</li>
-        <li>Preferí <strong>async/await + fixture.whenStable()</strong>.</li>
+  <div class="mt-5 grid gap-4 lg:grid-cols-2">
+    <article class="rounded-xl border border-rose-200 bg-rose-50 p-4">
+      <h3 class="font-semibold text-rose-950">Evita como diseño nuevo</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-rose-950">
+        <li><code>fakeAsync()</code>, <code>tick()</code> y <code>flushMicrotasks()</code> son utilidades basadas en Zone.js.</li>
+        <li><code>fixture.detectChanges()</code> tras cada mutación puede hacer pasar un componente incompatible.</li>
+        <li>Modificar propiedades comunes del componente sin una notificación de render.</li>
       </ul>
-    </div>
-
-    <div class="rounded-lg border border-sky-200 bg-sky-50 p-3">
-      <p class="font-semibold text-sky-800">🧪 Patrón recomendado</p>
-      <ol class="mt-1 list-decimal space-y-1 pl-5 text-sky-900">
-        <li>Creá el fixture: <code>const fixture = TestBed.createComponent(MyComponent)</code>.</li>
-        <li>Esperá estabilidad: <code>await fixture.whenStable()</code>.</li>
-        <li>Validá UI/estado con assertions normales.</li>
-      </ol>
-    </div>
-
-    <div class="rounded-lg border border-fuchsia-200 bg-fuchsia-50 p-3">
-      <p class="font-semibold text-fuchsia-800">🧠 Regla senior</p>
-      <p class="mt-1 text-fuchsia-900">
-        Testeá como corre producción: si producción es zoneless, configurá TestBed zoneless y evitá depender de magia de Zone.
-      </p>
-    </div>
+    </article>
+    <article class="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+      <h3 class="font-semibold text-emerald-950">Prefiere en zoneless</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-emerald-950">
+        <li>Interactuar como usuario o actualizar signals expuestas por la UI.</li>
+        <li>Esperar la sincronización programada con <code>await fixture.whenStable()</code>.</li>
+        <li>Proveer zoneless en <code>TestBed</code> si la suite aún carga Zone.js.</li>
+      </ul>
+    </article>
   </div>
+
+  <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+    <pre><code>TestBed.configureTestingModule(&#123;
+  providers: [provideZonelessChangeDetection()]
+&#125;);
+
+const fixture = TestBed.createComponent(CounterComponent);
+fixture.componentInstance.count.set(1); // signal consumida en template
+await fixture.whenStable();             // Angular realiza el render notificado
+
+expect(fixture.nativeElement.textContent).toContain('1');</code></pre>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+    <h3 class="font-semibold text-indigo-950">Lectura precisa de <code>detectChanges()</code></h3>
+    <p class="mt-2 text-sm leading-6 text-indigo-950">
+      No es una API prohibida: suites existentes pueden seguir utilizándola. El riesgo es usarla
+      para esconder que producción nunca calendarizaría ese cambio. Para código nuevo, deja que
+      Angular renderice después de una notificación real y espera estabilidad.
+    </p>
+  </div>
+
+  <aside class="mt-5 rounded-xl border-l-4 border-indigo-600 bg-indigo-50 p-4 text-sm text-indigo-950">
+    <h3 class="font-semibold">Regla expert · El test debe fallar por la razón correcta</h3>
+    <p class="mt-2 leading-6">
+      Si una propiedad mutada silenciosamente aparece en pantalla solo porque el test invocó
+      <code>detectChanges()</code>, probaste una ficción. En zoneless, el contrato bajo prueba
+      incluye la <strong>notificación que habilita el render</strong>.
+    </p>
+  </aside>
 </section>

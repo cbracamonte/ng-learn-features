@@ -1,45 +1,324 @@
-<section class="mx-auto max-w-6xl px-6 py-12">
-  <a routerLink="/" class="mb-8 inline-flex text-sm font-medium text-slate-600 hover:text-slate-900">← Volver al home</a>
+<section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+  <a
+    routerLink="/"
+    class="mb-6 inline-flex rounded-md px-1 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 sm:mb-8"
+  >
+    ← Volver al home
+  </a>
 
-  <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-    <h1 class="text-2xl font-semibold text-slate-900">Signals API</h1>
-    <p class="mt-3 text-slate-600">Ejemplos separados por concepto: signal, computed, effect, linkedSignal, resource e interop con RxJS.</p>
+  <header class="rounded-3xl border border-slate-800 bg-slate-950 p-5 text-white shadow-sm sm:p-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">
+      Angular Senior · Guía de entrevista
+    </p>
+    <h1 class="mt-3 text-3xl font-semibold tracking-tight">Signals API: estado, derivaciones y fronteras reactivas</h1>
+    <p class="mt-4 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
+      Estudia Signals como una decisión arquitectónica: comienza con el grafo reactivo, prueba las
+      primitivas, distingue side effects de derivaciones y termina defendiendo cuándo Signals
+      conviven con RxJS, asincronía y consultas de vista.
+    </p>
 
-    <div class="mt-6 grid gap-4 lg:grid-cols-2">
-      <app-signal-demo [count]="facade.count()" (increment)="facade.increment()" (reset)="facade.reset()" />
-      <app-computed-demo
-        [price]="facade.price()"
-        [quantity]="facade.quantity()"
-        [total]="facade.total()"
-        (addQty)="facade.addQty()"
-      />
-      <app-effect-demo [logs]="facade.logs()" (setQuery)="facade.setQuery($event)" />
-      <app-untracked-demo />
-      <app-effect-cleanup-demo />
-      <app-linked-signal-demo
-        [options]="facade.options()"
-        [selected]="facade.selected()"
-        (shuffle)="facade.shuffleOptions()"
-        (select)="facade.select($event)"
-      />
-      <app-resource-demo
-        class="lg:col-span-2"
-        [status]="facade.explanation.status()"
-        [isLoading]="facade.explanation.isLoading()"
-        [value]="facade.explanation.value()"
-        (setTopic)="facade.setTopic($event)"
-      />
-      <app-rxjs-todo-demo />
-      <app-signal-todo-demo />
-      <app-rxjs-http-demo />
-      <app-resource-http-demo />
-      <app-rxjs-interop-demo />
-      <app-to-signal-sync-demo />
-      <app-signal-queries-demo class="lg:col-span-2" />
-    </div>
+    <nav class="mt-7" aria-label="Ruta de estudio de Signals API">
+      <ol class="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        <li>
+          <a
+            routerLink="."
+            fragment="catalogo"
+            class="block rounded-xl border border-emerald-500/60 bg-emerald-500/10 p-3 transition hover:border-emerald-300 hover:bg-emerald-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">00</strong> Todos los tópicos
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="fundamentos"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-emerald-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">01</strong> Fundamentos
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="primitivas"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-emerald-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">02</strong> Primitivas
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="efectos"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-emerald-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">03</strong> Side effects
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="async"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-emerald-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">04</strong> Async
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="rxjs"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-emerald-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">05</strong> Signals vs RxJS
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="queries"
+            class="block rounded-xl border border-slate-700 bg-slate-900/60 p-3 transition hover:border-emerald-300 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">06</strong> Queries
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="."
+            fragment="entrevista"
+            class="block rounded-xl border border-emerald-500/60 bg-emerald-500/10 p-3 transition hover:border-emerald-300 hover:bg-emerald-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+          >
+            <strong class="mr-1 text-emerald-300">07</strong> Checklist Senior de entrevista
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </header>
 
-    <div class="mt-6">
-      <app-signals-notes />
-    </div>
-  </article>
+  <main class="mt-8 flex flex-col gap-6">
+    <section id="catalogo" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Mapa completo · 16 componentes</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950">Todos los tópicos disponibles en Signals API</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Usa este índice como checklist: cada enlace corresponde a un componente renderizado más
+        abajo. Los capítulos explican el criterio; estas piezas permiten practicar cada API sin
+        perder ninguna demo existente.
+      </p>
+
+      <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+          <h3 class="font-semibold text-sky-950">Teoría y primitives</h3>
+          <ul class="mt-3 space-y-2 text-sm text-sky-950">
+            <li><a routerLink="." fragment="fundamentos" class="underline decoration-sky-400 hover:text-sky-700">Fundamentos</a></li>
+            <li><a routerLink="." fragment="signal-demo" class="underline decoration-sky-400 hover:text-sky-700"><code>signal()</code></a></li>
+            <li><a routerLink="." fragment="computed-demo" class="underline decoration-sky-400 hover:text-sky-700"><code>computed()</code></a></li>
+            <li><a routerLink="." fragment="entrevista" class="underline decoration-sky-400 hover:text-sky-700">Notas Senior</a></li>
+          </ul>
+        </article>
+
+        <article class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+          <h3 class="font-semibold text-indigo-950">Efectos y dependencias</h3>
+          <ul class="mt-3 space-y-2 text-sm text-indigo-950">
+            <li><a routerLink="." fragment="effect-demo" class="underline decoration-indigo-400 hover:text-indigo-700"><code>effect()</code></a></li>
+            <li><a routerLink="." fragment="untracked-demo" class="underline decoration-indigo-400 hover:text-indigo-700"><code>untracked()</code></a></li>
+            <li><a routerLink="." fragment="cleanup-demo" class="underline decoration-indigo-400 hover:text-indigo-700"><code>onCleanup()</code></a></li>
+            <li><a routerLink="." fragment="queries-demo" class="underline decoration-indigo-400 hover:text-indigo-700">Signal queries</a></li>
+          </ul>
+        </article>
+
+        <article class="rounded-xl border border-violet-200 bg-violet-50 p-4">
+          <h3 class="font-semibold text-violet-950">Dependiente y async</h3>
+          <ul class="mt-3 space-y-2 text-sm text-violet-950">
+            <li><a routerLink="." fragment="linked-signal-demo" class="underline decoration-violet-400 hover:text-violet-700"><code>linkedSignal()</code></a></li>
+            <li><a routerLink="." fragment="resource-demo" class="underline decoration-violet-400 hover:text-violet-700"><code>resource()</code></a></li>
+            <li><a routerLink="." fragment="resource-http-demo" class="underline decoration-violet-400 hover:text-violet-700">API con resource</a></li>
+          </ul>
+        </article>
+
+        <article class="rounded-xl border border-cyan-200 bg-cyan-50 p-4">
+          <h3 class="font-semibold text-cyan-950">RxJS e interop</h3>
+          <ul class="mt-3 space-y-2 text-sm text-cyan-950">
+            <li><a routerLink="." fragment="rxjs-todo-demo" class="underline decoration-cyan-400 hover:text-cyan-700">Todo RxJS</a></li>
+            <li><a routerLink="." fragment="signal-todo-demo" class="underline decoration-cyan-400 hover:text-cyan-700">Todo Signals</a></li>
+            <li><a routerLink="." fragment="rxjs-http-demo" class="underline decoration-cyan-400 hover:text-cyan-700">API con RxJS</a></li>
+            <li><a routerLink="." fragment="interop-demo" class="underline decoration-cyan-400 hover:text-cyan-700"><code>toObservable()</code> + <code>toSignal()</code></a></li>
+            <li><a routerLink="." fragment="to-signal-sync-demo" class="underline decoration-cyan-400 hover:text-cyan-700"><code>requireSync</code> vs <code>initialValue</code></a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <app-signals-foundations-note class="block" />
+
+    <section id="primitivas" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700">Parte 2 · Primitivas esenciales</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950"><code>signal()</code> posee; <code>computed()</code> deriva</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        En una entrevista, esta es la primera regla que debes defender:
+        <strong>si un valor se puede calcular desde otro estado, no lo guardes por separado</strong>.
+        Evitas sincronizaciones manuales y fuentes de verdad contradictorias.
+      </p>
+
+      <div class="mt-5 grid gap-4 lg:grid-cols-2">
+        <div id="signal-demo" class="scroll-mt-6">
+          <app-signal-demo
+            class="block"
+            [count]="facade.count()"
+            (increment)="facade.increment()"
+            (reset)="facade.reset()"
+          />
+        </div>
+        <div id="computed-demo" class="scroll-mt-6">
+          <app-computed-demo
+            class="block"
+            [price]="facade.price()"
+            [quantity]="facade.quantity()"
+            [total]="facade.total()"
+            (addQty)="facade.addQty()"
+          />
+        </div>
+      </div>
+
+      <aside class="mt-5 rounded-xl border-l-4 border-emerald-600 bg-emerald-50 p-4 text-sm text-emerald-950">
+        <h3 class="font-semibold">Nivel Senior · Dos detalles que debes mencionar</h3>
+        <p class="mt-2 leading-6">
+          <code>computed()</code> es <strong>lazy y memoizado</strong>: solo recalcula al leerse
+          tras invalidarse. Además, sus dependencias son <strong>dinámicas</strong>: solo rastrea
+          signals realmente leídas en la rama ejecutada.
+        </p>
+      </aside>
+    </section>
+
+    <section id="efectos" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700">Parte 3 · Salir del mundo reactivo</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950"><code>effect()</code> no es tu motor de estado</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Usa efectos cuando una señal debe interactuar con una API no reactiva: analytics,
+        almacenamiento, canvas, listeners o timers. Si usas un effect para copiar valor entre
+        signals, probablemente estás ocultando una derivación que pertenecía a <code>computed()</code>.
+      </p>
+
+      <div class="mt-5 grid gap-4 lg:grid-cols-3">
+        <div id="effect-demo" class="scroll-mt-6">
+          <app-effect-demo class="block" [logs]="facade.logs()" (setQuery)="facade.setQuery($event)" />
+        </div>
+        <div id="untracked-demo" class="scroll-mt-6">
+          <app-untracked-demo class="block" />
+        </div>
+        <div id="cleanup-demo" class="scroll-mt-6">
+          <app-effect-cleanup-demo class="block" />
+        </div>
+      </div>
+
+      <div class="mt-5 grid gap-4 lg:grid-cols-2">
+        <aside class="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-indigo-950">
+          <h3 class="font-semibold"><code>untracked()</code>: lectura incidental</h3>
+          <p class="mt-2 leading-6">
+            Permite leer un snapshot sin convertirlo en dependencia. Úsalo con moderación:
+            elimina reacciones deliberadamente, por lo que una mala elección deja la UI desactualizada.
+          </p>
+        </aside>
+        <aside class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-950">
+          <h3 class="font-semibold">Trampa de entrevista: asincronía</h3>
+          <p class="mt-2 leading-6">
+            El contexto reactivo rastrea lecturas síncronas. Si lees una señal después de un
+            <code>await</code> dentro de un effect, esa lectura no se registra como dependencia.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="async" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-violet-700">Parte 4 · Estado dependiente y asincronía</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950"><code>linkedSignal()</code> y <code>resource()</code></h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Un valor puede ser editable y, a la vez, depender de otra fuente: selección vigente sobre
+        opciones cambiantes. Para datos asíncronos, un resource expone valor y estado de carga como
+        signals, pero la documentación de Angular v21 aún lo clasifica como <strong>experimental</strong>.
+      </p>
+
+      <div class="mt-5 grid gap-4 lg:grid-cols-2">
+        <div id="linked-signal-demo" class="scroll-mt-6">
+          <app-linked-signal-demo
+            class="block"
+            [options]="facade.options()"
+            [selected]="facade.selected()"
+            (shuffle)="facade.shuffleOptions()"
+            (select)="facade.select($event)"
+          />
+        </div>
+        <div id="resource-demo" class="scroll-mt-6">
+          <app-resource-demo
+            class="block"
+            [status]="facade.explanation.status()"
+            [isLoading]="facade.explanation.isLoading()"
+            [value]="facade.explanation.value()"
+            (setTopic)="facade.setTopic($event)"
+          />
+        </div>
+        <div id="resource-http-demo" class="scroll-mt-6 lg:col-span-2">
+          <app-resource-http-demo class="block" />
+        </div>
+      </div>
+
+      <aside class="mt-5 rounded-xl border-l-4 border-violet-600 bg-violet-50 p-4 text-sm text-violet-950">
+        <h3 class="font-semibold">Regla Expert · Expón la madurez de la API</h3>
+        <p class="mt-2 leading-6">
+          No presentes <code>resource()</code> como reemplazo universal y definitivo de RxJS/HTTP.
+          Una respuesta honesta menciona estados <code>loading</code>/<code>error</code>, cancelación
+          mediante <code>abortSignal</code>, estrategia de valor previo y su condición experimental.
+        </p>
+      </aside>
+    </section>
+
+    <section id="rxjs" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-cyan-700">Parte 5 · Frontera reactiva</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950">Signals y RxJS: cooperación, no guerra</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        Signals sobresalen modelando estado actual que la UI lee. RxJS sigue destacando en
+        pipelines de eventos, debounce, cancelación, retry y composición temporal. La decisión
+        Senior es mantener un owner claro y convertir solo en las fronteras necesarias.
+      </p>
+
+      <div class="mt-5 rounded-xl border border-cyan-200 bg-cyan-50 p-4">
+        <h3 class="font-semibold text-cyan-950">Misma necesidad local, dos modelos</h3>
+        <div class="mt-4 grid gap-4 lg:grid-cols-2">
+          <div id="rxjs-todo-demo" class="scroll-mt-6">
+            <app-rxjs-todo-demo class="block" />
+          </div>
+          <div id="signal-todo-demo" class="scroll-mt-6">
+            <app-signal-todo-demo class="block" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 grid gap-4 lg:grid-cols-2">
+        <div id="rxjs-http-demo" class="scroll-mt-6">
+          <app-rxjs-http-demo class="block" />
+        </div>
+        <div id="interop-demo" class="scroll-mt-6">
+          <app-rxjs-interop-demo class="block" />
+        </div>
+        <div id="to-signal-sync-demo" class="scroll-mt-6 lg:col-span-2">
+          <app-to-signal-sync-demo class="block" />
+        </div>
+      </div>
+    </section>
+
+    <section id="queries" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-fuchsia-700">Parte 6 · Componentes y DOM</p>
+      <h2 class="mt-1 text-xl font-semibold text-slate-950">Signal queries: vista reactiva sin lifecycle ceremonial</h2>
+      <p class="mt-3 max-w-4xl text-sm leading-6 text-slate-700">
+        <code>viewChild()</code> y <code>viewChildren()</code> devuelven señales actualizadas por
+        Angular cuando cambia el contenido de la vista. Son útiles cuando realmente necesitas la
+        referencia: foco, medición o integración imperativa; no para manipular el DOM como sustituto del template.
+      </p>
+
+      <div id="queries-demo" class="mt-5 scroll-mt-6">
+        <app-signal-queries-demo class="block" />
+      </div>
+    </section>
+
+    <app-signals-notes class="block" />
+  </main>
 </section>

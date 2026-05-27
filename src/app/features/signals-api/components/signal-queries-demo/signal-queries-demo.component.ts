@@ -1,10 +1,11 @@
-import { Component, ElementRef, computed, signal, viewChild, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, signal, viewChild, viewChildren } from '@angular/core';
 
 type Task = { id: number; title: string };
 
 @Component({
   selector: 'app-signal-queries-demo',
-  templateUrl: './signal-queries-demo.component.html'
+  templateUrl: './signal-queries-demo.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignalQueriesDemoComponent {
   readonly showInput = signal(true);

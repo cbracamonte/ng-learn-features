@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SignalsApiFacade } from './application/signals-api.facade';
 import { ComputedDemoComponent } from './components/computed-demo/computed-demo.component';
@@ -16,6 +16,7 @@ import { SignalTodoDemoComponent } from './components/signal-todo-demo/signal-to
 import { ToSignalSyncDemoComponent } from './components/to-signal-sync-demo/to-signal-sync-demo.component';
 import { UntrackedDemoComponent } from './components/untracked-demo/untracked-demo.component';
 import { SignalsNotesComponent } from './components/signals-notes/signals-notes.component';
+import { SignalsFoundationsNoteComponent } from './components/signals-foundations-note/signals-foundations-note.component';
 
 @Component({
   selector: 'app-signals-api',
@@ -35,10 +36,12 @@ import { SignalsNotesComponent } from './components/signals-notes/signals-notes.
     SignalTodoDemoComponent,
     ToSignalSyncDemoComponent,
     SignalQueriesDemoComponent,
-    SignalsNotesComponent
+    SignalsNotesComponent,
+    SignalsFoundationsNoteComponent
   ],
   providers: [SignalsApiFacade],
-  templateUrl: './signals-api.component.html'
+  templateUrl: './signals-api.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignalsApiComponent {
   protected readonly facade = inject(SignalsApiFacade);
